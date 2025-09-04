@@ -28,7 +28,7 @@ def box(x_center, y_center, width, height, fill, outline="black", outline_thickn
 
 #initialization
 drawly.start("Bob in the desert", dimensions=(x_pixels, y_pixels), background="skyblue")
-drawly.set_speed(speed=7)
+drawly.set_speed(speed=8)
 
 #text labels
 drawly.text(x_ratio(60), y_ratio(70), "Hi I'm Bob", 50) # optional font size
@@ -97,7 +97,7 @@ box(x_ratio(50), y_ratio(75), 150, 50, "gold", "orange")#brim
 drawly.draw()
 
 
-#left hand
+#left hand/arm
 left_hand_base_x = 40
 left_hand_base_y = 45
 drawly.set_color("brown")
@@ -107,12 +107,11 @@ drawly.line(x_ratio(left_hand_base_x), y_ratio(left_hand_base_y), x_ratio(left_h
 drawly.line(x_ratio(left_hand_base_x), y_ratio(left_hand_base_y), x_ratio(left_hand_base_x - 2.5), y_ratio(left_hand_base_y), 5)
 # Lower finger
 drawly.line(x_ratio(left_hand_base_x), y_ratio(left_hand_base_y), x_ratio(left_hand_base_x - 2.5), y_ratio(left_hand_base_y - 2), 5)
-# left Arm
+# Arm
 drawly.set_color("brown")
-drawly.line(x_ratio(left_hand_base_x+5), y_ratio(left_hand_base_y+5), x_ratio(left_hand_base_x), y_ratio(left_hand_base_y), 10)# Left arm
-drawly.draw()
+drawly.line(x_ratio(left_hand_base_x+5), y_ratio(left_hand_base_y+5), x_ratio(left_hand_base_x), y_ratio(left_hand_base_y), 10)
 
-#right hand
+#right hand/arm
 right_hand_base_x = 60
 right_hand_base_y = 45
 # Upper finger
@@ -121,7 +120,8 @@ drawly.line(x_ratio(right_hand_base_x), y_ratio(right_hand_base_y), x_ratio(righ
 drawly.line(x_ratio(right_hand_base_x), y_ratio(right_hand_base_y), x_ratio(right_hand_base_x + 2.5), y_ratio(right_hand_base_y), 5)
 # Lower finger
 drawly.line(x_ratio(right_hand_base_x), y_ratio(right_hand_base_y), x_ratio(right_hand_base_x + 2.5), y_ratio(right_hand_base_y - 2), 5)
-drawly.line(x_ratio(right_hand_base_x-5), y_ratio(right_hand_base_y+5), x_ratio(right_hand_base_x), y_ratio(right_hand_base_y), 10)# Right arm
+# Arm
+drawly.line(x_ratio(right_hand_base_x-5), y_ratio(right_hand_base_y+5), x_ratio(right_hand_base_x), y_ratio(right_hand_base_y), 10)
 drawly.draw()
 
 drawly.done()
