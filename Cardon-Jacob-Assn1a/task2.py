@@ -12,11 +12,12 @@ def y_ratio(y_ratio):
     return y_pixels*(100-y_ratio)/100
 
 #used in snowball, puddle, buttons, eyes, and sun
-def ball(x_ratio, y_ratio, size, fill="white", outline="black", outline_thickness=10):
-    drawly.set_color(new_color=fill)
-    drawly.circle(x_ratio, y_ratio, size)
-    drawly.set_color(new_color=outline)
-    drawly.circle(x_ratio, y_ratio, size, outline_thickness)
+def ball(x, y, radius, fill="white", outline="black", outline_thickness=10):
+    drawly.set_color(fill)
+    drawly.circle(x, y, radius)
+    if outline_thickness > 0:
+        drawly.set_color(outline)
+        drawly.circle(x, y, radius, outline_thickness)
 
 #used in hat, brim, cacti, and ground
 def box(x_center, y_center, width, height, fill, outline="black", outline_thickness=5):
