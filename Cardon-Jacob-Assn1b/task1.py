@@ -3,7 +3,7 @@
 
 import drawly
 
-# Window dimensions from Drawly configuration or standard
+# #window dimensions...common 16:9 ratios: 3840X2160, 2560X1440, 1920x1080, 1280x720(default), 854X480, 640x360
 x_pixels = 1920
 y_pixels = 1080
 
