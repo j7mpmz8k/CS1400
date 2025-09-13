@@ -45,7 +45,15 @@ for i in range(int(100/x_grid_incriments)):
 drawly.draw()
 
 
-number1 = drawly.terminal_input("enter a number")
-drawly.terminal_output(number1)
+# number1 = drawly.terminal_input("enter a number")
+# drawly.terminal_output(number1)
+
+# Draw the mouth arc, adjusting for the bounding rectangle of the arc function.
+drawly.set_color(blue)
+drawly.arc(x_ratio(50) - x_ratio(50), y_ratio(50) - mouth_radius, 2 * mouth_radius, 2 * mouth_radius,
+           mouth_start_angle, mouth_end_angle, mouth_thickness)
+drawly.draw()
+
+
 drawly.draw()
 drawly.done()
