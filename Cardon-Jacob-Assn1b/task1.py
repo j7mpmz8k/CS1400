@@ -82,9 +82,8 @@ mouth_rotation = int(drawly.terminal_input("Enter the rotation for the mouth in 
 draw_arc(mouth_color, mouth_center_x, mouth_center_y, mouth_width, mouth_hight, mouth_rotation, mouth_thickness)
 
 #Draw the user's name 25 pixels below the head
-#rounding y-position to nearest integer since floats are not excepted(only used if user inputs a decimal for head_width
 drawly.set_color("black")
-drawly.text(int(head_center_x), int(round(head_center_y + (head_width/2) + 25)), user_name, int(size_ratio(1)))
+drawly.text(int(head_center_x), int(head_center_y + (head_width/2) + 25), user_name, int(size_ratio(1)))
 drawly.draw()
 
 drawly.terminal_output(f"Thank you {user_name} for playing FACEINATOR!")
