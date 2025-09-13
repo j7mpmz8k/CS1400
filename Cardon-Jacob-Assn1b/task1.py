@@ -36,24 +36,19 @@ def draw_arc(color, center_x_pos, center_y_pos, width, hight, rotation=90, thick
     drawly.arc(center_x_pos - radius, center_y_pos - radius, width, hight, start=90+rotation, end=270+rotation, stroke=thickness)
     drawly.draw()
 
-print("Welcome to FACEINATOR where you get to draw your own face!")
+print("\nWelcome to FACEINATOR where you get to draw your own face!")
 print("NOTE! x/y Positions and size inputs are percentages of screen width/hight(0-100): x from left, y from bottom (0=bottom, 100=top).", end="\n")
-
-#Prompt the user for their name using standard input, as required before initializing the Drawly window.
-user_name = input("Please enter your name: ")
-
-#Initialize the Drawly graphics window with a title incorporating the user's name, specified dimensions for scaling,
-#and the terminal enabled for subsequent interactions.
+user_name = input("\nPlease enter your name: ")
+#starting drawly window
 drawly.start(title=f"{user_name}'s Faceinator", dimensions=(x_pixels, y_pixels), terminal=True)
-drawly.terminal_clear()
 
 #head
 drawly.terminal_output("Time to draw the head!")
 head_center_x = x_ratio(float(drawly.terminal_input("Enter the x-position for the center of the head (0-100): ")))
 head_center_y = y_ratio(float(drawly.terminal_input("Enter the y-position for the center of the head (0-100): ")))
-head_radius = size_ratio(float(drawly.terminal_input("Enter the width for the head (ie. 10 for 10% of width): ")))
+head_width = size_ratio(float(drawly.terminal_input("Enter the width for the head (ie. 10 for 10% of width): ")))
 head_color = drawly.terminal_input("Enter the color for the head: ")
-draw_circle(head_center_x, head_center_y, head_radius, head_color, 2)
+draw_circle(head_center_x, head_center_y, head_width, head_color, 2)
 
 # dawing eyes based on user input using a custom circle function
 drawly.terminal_output("Time to draw the eyes!")
@@ -79,16 +74,17 @@ drawly.terminal_output("NOTE! x/y Positions and size inputs are percentages of s
 mouth_center_x = x_ratio(float(drawly.terminal_input("Enter the x-position for the mouth arc center (0-100): ")))
 mouth_center_y = y_ratio(float(drawly.terminal_input("Enter the y-position for the mouth arc center (0-100): ")))
 #size input
-mouth_radius = size_ratio(float(drawly.terminal_input("Enter the width for the mouth arc: ")))
+mouth_width = size_ratio(float(drawly.terminal_input("Enter the width for the mouth arc: ")))
 mouth_hight = size_ratio(float(drawly.terminal_input("Enter the hight for the mouth arc: ")))
 mouth_thickness = int(drawly.terminal_input("Enter the line thickness for the mouth in pixels (0-100): "))
 #streamlined native arc function arguments of starting and ending angle, combined into just "rotation"
 mouth_rotation = int(drawly.terminal_input("Enter the rotation for the mouth in degrees (90=normal, increasing value=counterclockwise rotation): "))
-draw_arc(mouth_color, mouth_center_x, mouth_center_y, mouth_radius, mouth_hight, mouth_rotation, mouth_thickness)
+draw_arc(mouth_color, mouth_center_x, mouth_center_y, mouth_width, mouth_hight, mouth_rotation, mouth_thickness)
 
-#Draw the user's name
+#Draw the user's name 25 pixels below the head
+#rounding y-position to nearest integer since floats are not excepted(only used if user inputs a decimal for head_width
 drawly.set_color("black")
-drawly.text(head_center_x, y_ratio(98), user_name, size_ratio(1))
+drawly.text(int(head_center_x), int(round(head_center_y + (head_width/2) + 25)), user_name, int(size_ratio(1)))
 drawly.draw()
 
 drawly.terminal_output(f"Thank you {user_name} for playing FACEINATOR!")
