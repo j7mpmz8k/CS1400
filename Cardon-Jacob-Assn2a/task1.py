@@ -24,7 +24,7 @@ try:
     annuitiy_future_value = monthly_payment * annuity_rate
     combined_future_value = round(initial_future_value + annuitiy_future_value, 2)
 
-    print(f"Your future value is: ${combined_future_value}")
-
 except ZeroDivisionError:# APY of zero creates error
-    print(f"Your future value is: ${investment + (monthly_payment * years)}")
+    combined_future_value = round(investment + (monthly_payment * years), 2)
+
+print(f"Your future value is: ${combined_future_value}")
