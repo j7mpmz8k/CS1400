@@ -6,7 +6,7 @@ import math
 
 def area_of_polygon(sides, length):
     """function assumes a regular polygon with equal lenghts per side"""
-    return round((sides * math.pow(length,3)) / (4 * tan(pi / sides)), 5)
+    return round((sides * math.pow(length,2)) / (4 * tan(pi / sides)), 5)
 
 print("Welcome to the polygon calculator")
 
