@@ -21,7 +21,7 @@ try:
 
     #seperates compound interest from initial contribution from monthly annuity contributions, then combines
     initial_future_value = investment * growth_rate
-    annuitiy_future_value = monthly_payment * annuity_rate
+    annuitiy_future_value = monthly_payment * annuity_due_rate
     combined_future_value = round(initial_future_value + annuitiy_future_value, 2)
 
 except ZeroDivisionError:# APY of zero creates error
