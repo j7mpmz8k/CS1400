@@ -37,7 +37,7 @@ except ValueError:
     print("\nERROR! Only whole numbers of sides per polygon are allowed.")
 
 else:
-    #loops through each polygon and prints both lists of sides and lengths
+    #loops through each polygon and prints the area
     for poly_index in range(4):
         poly_name = poly_index + 1
         print(f"The area of polygon {poly_name} is: {area_of_polygon(num_sides[poly_index], lengths[poly_index])}")

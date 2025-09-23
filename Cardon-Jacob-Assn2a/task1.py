@@ -15,7 +15,7 @@ try:
     #calculates total months based on on years of investment
     total_months = years * 12
     growth_rate = (1 + monthly_rate) ** total_months
-    #orginary annuity formula doesn't contain '* (1 + monthly_rate)' at the end
+    #orginal annuity formula doesn't contain '* (1 + monthly_rate)' at the end
     # annuity 'due' means payments are due at the begining of each month instead of the end...giving extra month of accural
     annuity_due_rate = ((growth_rate - 1) / monthly_rate) * (1 + monthly_rate)
 
