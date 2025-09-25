@@ -4,14 +4,14 @@
 import drawly
 from math import inf
 # window dimensions...common 16:9 ratios: 3840X2160, 2560X1440, 1920x1080, 1280x720(default), 854X480, 640x360
-x_pixels = 1920
-y_pixels = 1080
+x_pixels = 2560
+y_pixels = 1440
 
 def x_ratio(x_ratio):
-    """Converts a position by percentage to pixel coordinate (0 = left, 100 = right)"""
+    """Converts a position by percentage of screen aspect ratio to pixel coordinate (0 = left, 100 = right)"""
     return x_pixels * x_ratio / 100
 def y_ratio(y_ratio):
-    """Converts a position by percentage to pixel coordinate (0 = bottom, 100 = top)"""
+    """Converts a position by percentage of screen aspect ratio to pixel coordinate (0 = bottom, 100 = top)"""
     return y_pixels * (100 - y_ratio) / 100
 def draw_circle(center_location, width, outline_thickness=0, outline="black", fill="white"):
     """allows to draw either a filled cicle or an outline...\n
@@ -27,16 +27,17 @@ def draw_circle(center_location, width, outline_thickness=0, outline="black", fi
         drawly.circle(center_x_pos, center_y_pos, x_ratio(width) / 2)
     drawly.draw()
 def distance(point1, point2):
-    """calculates the distance between two points"""
+    """calculates the pixel count distance between two points...\n
+    point=(x,y)"""
     x1, y1 = point1
     x2, y2 = point2
-    return ((x2 - x1)**2 + (y2 - y1)**2)**0.5
+    return ((x_ratio(x2) - x_ratio(x1))**2 + (y_ratio(y2) - y_ratio(y1))**2)**0.5
 def calculate_overlap(point1, size1, point2, size2):
-    """checks how much two circles overlap...\n
+    """checks how many pixels two circles overlap...\n
     point=(x,y)...size=diameter"""
     radius1 = size1 / 2
     radius2 = size2 / 2
-    return (radius1 + radius2) - distance(point1, point2)
+    return (x_ratio(radius1) + x_ratio(radius2)) - distance(point1, point2)
 
 
 print("\nWelcome to Superhero Decisions")
@@ -69,10 +70,10 @@ while hero_sword_length + hero_arm_length <= hero_leg_length:
 samurai_slash = (hero_sword_length * 2) + (hero_arm_length * 2) + hero_size
 #voice power
 hero_voice_length = -inf
-while hero_voice_length > hero_arm_length + hero_sword_length + (hero_size / 2):
-    print(f"Voice Length must be greater than radius of body: {hero_size / 2}")
+while hero_voice_length < hero_arm_length + hero_sword_length + (hero_size / 2):
+    print(f"Voice Length must be greater than arm and sword length from body: {hero_arm_length + hero_sword_length + (hero_size / 2)}")
     hero_voice_length = int(input("...Voice length: "))#radius
-    if hero_voice_length > hero_arm_length + hero_sword_length + (hero_size / 2):
+    if hero_voice_length < hero_arm_length + hero_sword_length + (hero_size / 2):
         print("Invalid input. Please try again.")
 sonic_blast = hero_voice_length * 2
 print(f"\nWelcome superhero {hero_name}, please keep us all safe!\n")
@@ -89,29 +90,38 @@ while overlap > 0:
     overlap = calculate_overlap(hero_location, hero_size, villain_location, villain_size)
     if overlap > 0:
         print("\nInvalid input. Must not overlap with hero. Please try again.")
-print(f"\nOh no! The evil villain {villain_name} has apeared!")
+print(f"\nOh no! The evil villain {villain_name} has appeared!")
 
 input(f"Hit Enter to help {hero_name} fight {villain_name}: ")
 drawly.start(title=f"{hero_name} vs {villain_name}", dimensions=(x_pixels, y_pixels), terminal=True)
 drawly.set_speed(9)
 
+#draws hero and villain as filled in circle
 draw_circle(hero_location, width=hero_size, fill="tan")
 draw_circle(villain_location, width=villain_size, fill="black")
 
 powers = {
-    1:{"name":"super_punch", "size":super_punch, "color":"blue"},
-    2:{"name":"ninja_kick", "size":ninja_kick, "color":"green"},
-    3:{"name":"samurai_slash", "size":samurai_slash, "color":"red"},
-    4:{"name":"sonic_blast", "size":sonic_blast, "color":"purple"}
+    1:{"name":"super punch", "size":super_punch, "color":"blue"},
+    2:{"name":"ninja kick", "size":ninja_kick, "color":"green"},
+    3:{"name":"samurai slash", "size":samurai_slash, "color":"red"},
+    4:{"name":"sonic blast", "size":sonic_blast, "color":"purple"}
 }
 best_attack = {"name":None, "overlap":inf}
+#loop for both drawing each attack circumference, and finding the best attack to use
 for power in powers:
     draw_circle(hero_location, powers[power]["size"], outline_thickness=3, outline=powers[power]["color"])
     overlap = calculate_overlap(hero_location, powers[power]["size"], villain_location, villain_size)
+    #finds the least non negative overlap of the attack action with the villain
     if 0 < overlap < best_attack["overlap"]:
         best_attack["name"] = powers[power]["name"]
         best_attack["overlap"] = overlap
-print(f"Superhero {hero_name}'s best attack is {best_attack['name']}")
+if best_attack["name"] == None:
+    defeat_message = f"Oh no! {villain_name} is too far away!"
+    print(defeat_message)
+    drawly.terminal_output(defeat_message)
+else:
+    attack_messaage = f"{hero_name}'s best attack is {best_attack['name']}!"
+    print(attack_messaage)
+    drawly.terminal_output(attack_messaage)
 
-#head
-drawly.terminal_input("Press enter to attack! ")
+drawly.done()

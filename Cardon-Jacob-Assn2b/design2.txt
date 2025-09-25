@@ -1,35 +1,38 @@
 # Jacob Cardon
 # CS1400 - MWF - 8:30am
 
+set up functions for calculating dynamic aspect ratio, drawing circles efficiently, and calculating overlap of circles
+
 Prompt the user for:
     Superhero name
-    Body size - This is the diameter of their body.(radius must be an integer)
+    Body size - This is the diameter of their body.
     Location - X, Y location. Use two prompts to get this
     Arm length
     Leg length(re-prompt user if not greater than arm length)
     Sword length(re-prompt user if sword+arm length not greater than leg length)(equal to body radius + arm and sword length)
     Voice power (re-prompt user if not greater than arm+sword length)(equal to body radius size + voice power input)
-calculate:
-    Kick length(body radius size + leg length)
-    Punch length(body radius size + arm length)
+calculate(find total diameters to draw by multiplying radii by 2):
+    Kick diameter(body radius + leg length)*2
+    Punch diameter(body radius + arm length)*2
+    Sword diameter(body radius + arm length + sword length)*2
+    Voice power diameter(voice length)*2
 Welcome message for Superhero
 
 Prompt user for:
     Villain name
     Body size
-    Location(prevent overlapping space with superhero)
+    Location(no overlap with hero...compare sum of radii of villain and hero...no overlap if distance between center points is greater or equal
 Mean message for the the Villain
 
 Ask user for input: Hit Enter to help {Superhero_name} fight {villain_name}.
 
 Draw the scene with Drawly (Give the window a title of {superhero_name} vs. {villain_name})
-    different colored rings to show the distance at which each Superhero attack works.
-    Show the location of the Superhero and Villain.
-    line thickness of 3 pixels for each circle
+    store possible attack actions (ie. name, color, diameter) in dictionary
+    loop through possible attacks and draw each action with stored color and diameter(line thickness of 3 pixels for each circle)
+    draw the Superhero and Villain with appropriate location and size
 
 
-Print a message telling the Superhero what to do, Do something creative in renaming the attacks.
-    Punch
-    Kick
-    Sword attack
-    Voice stun
+Print a message telling the Superhero what to do
+    store best attack in dictionary("name":diameter)...best attack--> closest range to villain while at least touching
+    print best attack after looping through comparing each possible attack with the currect best attack
+    Notify user if if Villain is out of range for hero to attack
