@@ -1,0 +1,16 @@
+# Jacob Cardon
+# CS1400 - MWF - 8:30am
+
+Welcome to the Guessing Game
+solution = The Computer has picked a number from 1 - 10. Try to match it.
+
+input = What number do you choose (1-10):
+
+You picked {input} and the actual number was {solution}
+
+if input == computers number --> Honored to play with you, True Aggie.
+else:
+    off by 1 --> You are a worthy apponent, Big Blue.
+    off by 2 --> You have much to learn, Hurd.
+    off by 3 --> Little Blue, your time will come.
+    off by 4+ --> Keep working hard on the Quad.
