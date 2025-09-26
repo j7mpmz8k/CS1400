@@ -10,7 +10,7 @@ Prompt the user for:
     Arm length
     Leg length(re-prompt user if not greater than arm length)
     Sword length(re-prompt user if sword+arm length not greater than leg length)(equal to body radius + arm and sword length)
-    Voice power (re-prompt user if not greater than arm+sword length)(equal to body radius size + voice power input)
+    Voice power (re-prompt user if not greater than arm+sword length)(emenates from center of body)
 calculate(find total diameters to draw by multiplying radii by 2):
     Kick diameter(body radius + leg length)*2
     Punch diameter(body radius + arm length)*2

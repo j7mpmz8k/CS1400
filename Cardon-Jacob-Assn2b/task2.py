@@ -78,11 +78,11 @@ samurai_slash = (hero_sword_length * 2) + (hero_arm_length * 2) + hero_size
 
 #voice power
 hero_voice_length = -inf
-#asumes voice power length must also include the hero radius size when rubric says must be greater than arm+sword length
-while hero_voice_length < hero_arm_length + hero_sword_length + (hero_size / 2):
-    print(f"Voice Length must be greater than arm and sword length from body: {hero_arm_length + hero_sword_length + (hero_size / 2)}")
+#must be greater than arm+sword length emenating from center of body
+while hero_voice_length < hero_arm_length + hero_sword_length:
+    print(f"Voice Length must be greater than arm and sword length: {hero_arm_length + hero_sword_length}")
     hero_voice_length = int(input("...Voice length: "))#radius
-    if hero_voice_length < hero_arm_length + hero_sword_length + (hero_size / 2):
+    if hero_voice_length < hero_arm_length + hero_sword_length:
         print("Invalid input. Please try again.")
 #creates attack as diameter extended from center of hero's body
 sonic_blast = hero_voice_length * 2
