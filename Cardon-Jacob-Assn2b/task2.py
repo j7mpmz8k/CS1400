@@ -1,7 +1,7 @@
 # Jacob Cardon
 # CS1400 - MWF - 8:30am
 
-import drawly
+import drawly, math
 from math import inf
 
 # window dimensions...common 16:9 ratios: 3840X2160, 2560X1440, 1920x1080, 1280x720(default), 854X480, 640x360
@@ -25,18 +25,12 @@ def draw_circle(center_location, width, outline_thickness=0, outline="black", fi
         drawly.set_color(fill)
         drawly.circle(center_x_pos, center_y_pos, width / 2)
     drawly.draw()
-def distance(point1, point2):
-    """calculates the pixel count distance between two points...\n
-    point=(x,y)"""
-    x1, y1 = point1
-    x2, y2 = point2
-    return ((x2 - x1)**2 + (y2 - y1)**2)**0.5
 def calculate_overlap(point1, size1, point2, size2):
     """checks how many pixels two circles overlap...\n
     point=(x,y)...size=diameter"""
     radius1 = size1 / 2
     radius2 = size2 / 2
-    return (radius1 + radius2) - distance(point1, point2)
+    return (radius1 + radius2) - math.dist(point1, point2)
 
 
 print("\nWelcome to Superhero Decisions")
@@ -106,7 +100,7 @@ print(f"\nOh no! The evil villain {villain_name} has appeared!")
 #instructions to user to fight villain
 input(f"Hit Enter to help {hero_name} fight {villain_name}: ")
 
-
+#window Y dimensions 50pixels shorter to allow room for terminal lines*linehight
 drawly.start(title=f"{hero_name} vs {villain_name}", dimensions=(x_pixels, y_pixels-50),
              terminal=True, terminal_lines=1, terminal_line_height=50)
 drawly.set_speed(9)
