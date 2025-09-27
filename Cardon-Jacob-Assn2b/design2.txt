@@ -30,6 +30,7 @@ Draw the scene with Drawly (Give the window a title of {superhero_name} vs. {vil
     store possible attack actions (ie. name, color, diameter) in dictionary
     loop through possible attacks and draw each action with stored color and diameter(line thickness of 3 pixels for each circle)
     draw the Superhero and Villain with appropriate location and size
+    reduce Y hight of window equal to number of pixels terminal takes up (lines * line hight)
 
 
 Print a message telling the Superhero what to do

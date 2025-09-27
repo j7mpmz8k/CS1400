@@ -3,16 +3,17 @@
 
 import drawly
 from math import inf
+
 # window dimensions...common 16:9 ratios: 3840X2160, 2560X1440, 1920x1080, 1280x720(default), 854X480, 640x360
 x_pixels = 1920
 y_pixels = 1080
 
 def x_ratio(x_ratio):
     """Converts a position by percentage of screen aspect ratio to pixel coordinate (0 = left, 100 = right)"""
-    return x_pixels * x_ratio / 100
+    return int(x_pixels * x_ratio / 100)
 def y_ratio(y_ratio):
     """Converts a position by percentage of screen aspect ratio to pixel coordinate (0 = bottom, 100 = top)"""
-    return y_pixels * (100 - y_ratio) / 100
+    return int(y_pixels * (100 - y_ratio) / 100)
 def draw_circle(center_location, width, outline_thickness=0, outline="black", fill="white"):
     """allows to draw either a filled cicle or an outline...\n
     center_location=(x,y)...width=diameter"""
@@ -106,7 +107,8 @@ print(f"\nOh no! The evil villain {villain_name} has appeared!")
 input(f"Hit Enter to help {hero_name} fight {villain_name}: ")
 
 
-drawly.start(title=f"{hero_name} vs {villain_name}", dimensions=(x_pixels, y_pixels))
+drawly.start(title=f"{hero_name} vs {villain_name}", dimensions=(x_pixels, y_pixels-50),
+             terminal=True, terminal_lines=1, terminal_line_height=50)
 drawly.set_speed(9)
 
 #draws hero and villain as filled in circle
@@ -132,9 +134,13 @@ for power in powers:#"power"=key names, not an index
         best_attack["overlap"] = overlap
 #checks if villain is out of range from hero's attacks
 if best_attack["name"] == None:
-    print(f"Oh no! {villain_name} is too far away!")
+    defeat_message = f"Oh no! {villain_name} is too far away!"
+    print(defeat_message)
+    drawly.terminal_output(defeat_message)
 else:
-    # if in range, displays best attack
-    print(f"{hero_name}'s best attack is {best_attack['name']}!")
+    #if in range, displays best attack
+    success_message = f"{hero_name}'s best attack is {best_attack['name']}!"
+    print(success_message)
+    drawly.terminal_output(success_message)
 
 drawly.done()
