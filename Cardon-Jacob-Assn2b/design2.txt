@@ -3,7 +3,7 @@
 
 set up functions for calculating dynamic aspect ratio, drawing circles efficiently, and calculating overlap of circles
 
-Prompt the user for:
+Prompt the user for input:
     Superhero name
     Body size - This is the diameter of their body.
     Location - X, Y location. Use two prompts to get this
@@ -18,19 +18,20 @@ calculate(find total diameters to draw by multiplying radii by 2):
     Voice power diameter(voice length)*2
 Welcome message for Superhero
 
-Prompt user for:
+Prompt user for input:
     Villain name
     Body size
-    Location(no overlap with hero...compare sum of radii of villain and hero...no overlap if distance between center points is greater or equal
+    Location
+        use overlap() function to prevent overlap with hero...compares sum of radii of villain and hero-->no overlap if distance between center points is greater or equal
 Mean message for the the Villain
 
 Ask user for input: Hit Enter to help {Superhero_name} fight {villain_name}.
 
 Draw the scene with Drawly (Give the window a title of {superhero_name} vs. {villain_name})
+    reduce Y hight of window equal to number of pixels terminal takes up (lines * line hight)
     store possible attack actions (ie. name, color, diameter) in dictionary
     loop through possible attacks and draw each action with stored color and diameter(line thickness of 3 pixels for each circle)
     draw the Superhero and Villain with appropriate location and size
-    reduce Y hight of window equal to number of pixels terminal takes up (lines * line hight)
 
 
 Print a message telling the Superhero what to do

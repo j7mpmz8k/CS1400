@@ -37,10 +37,10 @@ print("\nWelcome to Superhero Decisions")
 print("For size and coordinate values, please enter 0-100 representing percentage of screen size")
 # hero build
 hero_name = input("For the Superhero enter...\n...Name: ")
-hero_size = x_ratio(int(input("...Size: ")))#diameter
 hero_x_location = x_ratio(int(input("...X Location(0-100 left to right): ")))
 hero_y_location = y_ratio(int(input("...Y Location(0-100 bottom to top): ")))
 hero_location = hero_x_location, hero_y_location
+hero_size = x_ratio(int(input("...Size: ")))#diameter
 
 #arms
 hero_arm_length = x_ratio(int(input("...Arm length: ")))#radius
