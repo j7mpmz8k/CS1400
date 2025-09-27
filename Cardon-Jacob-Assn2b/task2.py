@@ -4,16 +4,17 @@
 import drawly, math
 from math import inf
 
+
 # window dimensions...common 16:9 ratios: 3840X2160, 2560X1440, 1920x1080, 1280x720(default), 854X480, 640x360
-x_pixels = 1920
-y_pixels = 1080
+x_window = 2560
+y_window = 1440
 
 def x_ratio(x_ratio):
     """Converts a position by percentage of screen aspect ratio to pixel coordinate (0 = left, 100 = right)"""
-    return int(x_pixels * x_ratio / 100)
+    return int(x_window * x_ratio / 100)
 def y_ratio(y_ratio):
     """Converts a position by percentage of screen aspect ratio to pixel coordinate (0 = bottom, 100 = top)"""
-    return int(y_pixels * (100 - y_ratio) / 100)
+    return int(y_window * (100 - y_ratio) / 100)
 def draw_circle(center_location, width, outline_thickness=0, outline="black", fill="white"):
     """allows to draw either a filled cicle or an outline...\n
     center_location=(x,y)...width=diameter"""
@@ -43,42 +44,42 @@ hero_location = hero_x_location, hero_y_location
 hero_size = x_ratio(int(input("...Size: ")))#diameter
 
 #arms
-hero_arm_length = x_ratio(int(input("...Arm length: ")))#radius
+hero_arm_length = int(input("...Arm length: "))#radius
 #attack stored as a diameter from arm length extended from edge of hero's body
-super_punch = (hero_arm_length * 2) + hero_size
+super_punch = x_ratio((hero_arm_length * 2)) + hero_size
 
 #legs
 hero_leg_length = -inf
 #makes sure input for leg length is greater than arm length
 while hero_leg_length <= hero_arm_length:
     print(f"Leg length must be greater than arm length: {hero_arm_length}")
-    hero_leg_length = x_ratio(int(input("...Leg length: ")))#radius
+    hero_leg_length = int(input("...Leg length: "))#radius
     if hero_leg_length <= hero_arm_length:
         print("Invalid input. Please try again.")
 #attack stored as a diameter from leg length extended from edge of hero's body
-ninja_kick = (hero_leg_length * 2) + hero_size
+ninja_kick = x_ratio((hero_leg_length * 2)) + hero_size
 
 #sword
 hero_sword_length = -inf
 while hero_sword_length + hero_arm_length <= hero_leg_length:
     print("Sword + arm Length must be greater than leg length:")
     print(f"Sword length must be greater than: {hero_leg_length-hero_arm_length}")
-    hero_sword_length = x_ratio(int(input("...Sword length: ")))#radius
+    hero_sword_length = int(input("...Sword length: "))#radius
     if hero_sword_length + hero_arm_length <= hero_leg_length:
         print("Invalid input. Please try again.")
 #attack stored as a diameter from sum of arm and sword length extended from edge of hero's body
-samurai_slash = (hero_sword_length * 2) + (hero_arm_length * 2) + hero_size
+samurai_slash = x_ratio((hero_sword_length * 2) + (hero_arm_length * 2)) + hero_size
 
 #voice power
 hero_voice_length = -inf
 #must be greater than arm+sword length emenating from center of body
 while hero_voice_length < hero_arm_length + hero_sword_length:
-    print(f"Voice Length must be greater than arm and sword length: {hero_arm_length + hero_sword_length}")
-    hero_voice_length = x_ratio(int(input("...Voice length: ")))#radius
+    print(f"Voice Length must be greater than arm + sword length: {hero_arm_length + hero_sword_length}")
+    hero_voice_length = int(input("...Voice length: "))#radius
     if hero_voice_length < hero_arm_length + hero_sword_length:
         print("Invalid input. Please try again.")
 #creates attack as diameter extended from center of hero's body
-sonic_blast = hero_voice_length * 2
+sonic_blast = x_ratio(hero_voice_length * 2)
 
 print(f"\nWelcome superhero {hero_name}, please keep us all safe!\n")
 
@@ -101,7 +102,7 @@ print(f"\nOh no! The evil villain {villain_name} has appeared!")
 input(f"Hit Enter to help {hero_name} fight {villain_name}: ")
 
 #window Y dimensions 50pixels shorter to allow room for terminal lines*linehight
-drawly.start(title=f"{hero_name} vs {villain_name}", dimensions=(x_pixels, y_pixels-50),
+drawly.start(title=f"{hero_name} vs {villain_name}", dimensions=(x_window, y_window-50),
              terminal=True, terminal_lines=1, terminal_line_height=50)
 drawly.set_speed(9)
 

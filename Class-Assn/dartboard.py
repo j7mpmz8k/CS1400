@@ -4,8 +4,8 @@ import drawly
 from random import randrange
 from math import cos, sin, radians
 #window dimensions...common 16:9 ratios: 3840X2160, 2560X1440, 1920x1080, 1280x720(default), 854X480, 640x360
-x_pixels = 1920
-y_pixels = 1080
+x_pixels = 2560
+y_pixels = 1440
 
 def x_ratio(x_ratio):
     """Converts a position by percentage to pixel coordinate (0 = left, 100 = right)"""
@@ -35,7 +35,7 @@ dart_size = x_ratio(5)
 dart_offset_distance = (target_size / 2) + (dart_size / 2)
 num_of_darts = int(input("How many darts would you like? "))
 
-drawly.start(title="dart board", background="white", dimensions=(x_pixels, y_pixels), terminal=True, terminal_lines=3, terminal_line_height=50)
+drawly.start(title="dart board", background="white", dimensions=(x_pixels, y_pixels-150), terminal=True, terminal_lines=3, terminal_line_height=50)
 drawly.set_speed(9)
 
 draw_circle(target_location, target_size, fill="blue")
