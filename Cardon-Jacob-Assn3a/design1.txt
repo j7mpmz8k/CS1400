@@ -1,0 +1,22 @@
+ask user for leap year(must be 4 digits)
+
+extract each digit from year
+
+set up condition variables for each case
+    case 1
+        divisible by 9
+        last two digits must not match
+    case 2
+        first two digits must equal sum of last two (ie. 1055)
+        third digit must be even
+        third digit less than fourth
+
+set variables for end message.
+    universal end message
+    message if leap year
+    message if not leap year
+
+check if either case 1 or case 2 is met.
+    append message variable saying if leap year or not to universal end message
+
+tell user the end message if they guess correctly or not
