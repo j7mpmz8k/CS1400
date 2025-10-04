@@ -1,0 +1,18 @@
+set up animal class and list where animals will be stored
+
+initialize animalinator object
+
+welcome message
+
+using a loop, gather user input for animals
+create object for each animal and append to list
+add to animalinator object
+
+shuffle animalinator name and noises
+
+ask user to hit enter to see results
+
+loop through printing results
+    number of animals seen
+    what each animal says
+    what the animalinator is called and does and how many(avg of num of animals)

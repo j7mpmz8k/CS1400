@@ -1,4 +1,5 @@
-ask user for leap year(must be 4 digits)
+welcome message
+    ask user for leap year(must be 4 digits)
 
 extract each digit from year
 
