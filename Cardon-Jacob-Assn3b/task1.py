@@ -68,7 +68,7 @@ def update_meter(start:int, target:int):
     Takes arguments of where to animate to and from. Then draws animation in 5 frame increments.
     'target' should only be 1 score increase/difference as update_all() will call update_meter() multiple times until new score is met.
     """
-    diff = target - start  # Local diff for this step
+    diff = target - start
 
     for frame in range(1, meter.FRAMES + 1):# frames: 1-5
         # meter background

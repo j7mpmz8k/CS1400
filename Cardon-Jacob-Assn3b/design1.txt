@@ -1,0 +1,20 @@
+set up classes and objects for scoreboard, game, and meter
+
+set up function for scoreboard
+    updates score in game and scoreboard object
+    displays new score
+
+set up function for meter animation
+    decide difference of change if positive or negative
+        sets color to red or green depending on positive or negative
+    sections off orgination and destination of meter into 5 frames incremental point change
+
+initializes scoreboard and meter to zero
+
+while loop
+    create random math question
+    ask user for answer
+    update score each time
+    decide point allocation based on time spent to answer
+    decide if answer is correct or not flipping points to negative if wrong
+    winning conditions
