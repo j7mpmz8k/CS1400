@@ -1,0 +1,43 @@
+The current design does not account for the needed shift of each line to the right. When constructing the current design each line
+shows up aligned to the left. To center align each line to apear as a pyrimid: after each line as been contructed when concatonating
+to the return message, the code must also concatonate a series of preceeding spaces to ensure center alignment of each line.
+
+-New Steps
+1. calculate total length of bottom most row including spaces and numbers
+2. create variable for beggining spaces
+    a. (max bottom length / 2) - (current row length / 2)
+    b. ensure output is an integer
+    c. convert to string of spaces equal to algorimic output (see step a.)
+3. concatonate row text to begining spaces (with new line after each row)
+
+
+
+
+
+-System Design With New Steps
+
+make_number_pyramid function
+1. Create formal parameter for the number of rows from the caller of the function
+2. Create a string variable that will be returned. Start as an empty string.
+3. calculate total length of bottom most row including spaces and numbers
+4. Create a loop from 0 to the number of rows (including the number of rows value)
+     a. Create a string variable for the row of text
+     b. create variable for beggining spaces
+        i. (max bottom length / 2) - (current row length / 2)
+        ii. ensure output is an integer
+        iii. convert to string of spaces equal to algorimic output (see step a.)
+     b. Create a loop from 0 to the current row number
+          i. Create a conditional to concatenate a space to the text if it's not the first character of the row
+          ii. Concatenate the row number to the string
+     c. Add the row of text string to the message variable. Make sure to add a newline at the end AND begining spaces before
+5. Return the string message
+
+
+main function
+1. Get input from the user for the number of rows to print
+2. Call makeNumberPyramid using the value from the user and save the return
+3. Print the return value
+
+
+program start - Note: You do not need to include this in your future designs as this is implied.
+1. Call main function
