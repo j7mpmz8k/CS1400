@@ -1,0 +1,42 @@
+*NO GLOBAL VARIABLES*
+
+draw_chessboard()
+    0. draws board outline
+    1. pramameters
+        x start position
+        y start position
+        width - default value is 250
+        height - default value is 250
+    2. call drawly.start()
+        a. set speed to 10
+        b. background is white
+    3. call draw_rectangle() for the boarder
+    4. call draw_all_rectangles()
+
+draw_all_rectangles()
+    0. draws 8x8 grid
+    1. parameters
+        x_start position
+        y_start position
+        width (divide by 8)
+        height (divide by 8)
+    2. loop 8 times for each row
+            loop 8 times for each column
+                call draw_rectangle() only every other time
+                    skip first tile if row number is even
+                    column width is x_start + row number * width
+                    row height is y_start + column number * height
+                    if even row do nothing
+
+draw_rectangle()
+    1. parameters
+        x start position
+        y start position
+        width
+        height
+        boarder - default value is False
+    2. draw with polygon *add_poly_point() ONLY ONCE!*
+        a. set color to black
+        b. stroke is 1 if boarder is True else 0
+        c. add 4 points to the polygon for each side of the rectangle
+    3. call drawly.draw() *last line*
