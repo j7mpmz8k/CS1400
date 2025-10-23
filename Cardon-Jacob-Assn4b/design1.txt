@@ -35,8 +35,11 @@ draw_rectangle()
         width
         height
         boarder - default value is False
-    2. draw with polygon *add_poly_point() ONLY ONCE!*
-        a. set color to black
-        b. stroke is 1 if boarder is True else 0
-        c. add 4 points to the polygon for each side of the rectangle
+    2. iterate through list of point modifiers
+            a. point modifiers are (0,0) (0,1) (1,1) (1,0))
+                    algorith to determain x,y point is (x_start + width * x_modifier, y_start + height * y_modifier)
+            b. draw with polygon
+                    set color to black
+                    stroke is 1 if boarder is True else don't pass anything into the parameter
+                    add 4 points to the polygon for each side of the rectangle
     3. call drawly.draw() *last line*
