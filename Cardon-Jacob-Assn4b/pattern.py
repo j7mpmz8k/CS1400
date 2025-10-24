@@ -37,15 +37,16 @@ def draw_circle_pattern(center_x:int, center_y:int, offset:int, radius:int, coun
 def draw_super_pattern(pattern_count:int=5) -> None:
     for i in range(pattern_count):
         random_function = randint(0,1)
-        center_x = randint(200, 520)
-        center_y = randint(200, 1080)
+        center_x = randint(0, 1280)
+        center_y = randint(0, 720)
         offset = randint(0, 100)
         width = randint(10, 100)
         height = randint(10, 100)
-        count = randint(3, 200)
+        radius = randint(10, 100)
+        count = randint(3, 50)
         rotation = randint(0, 360)
         if random_function == 1:
-            draw_rectangle_pattern(center_x, center_y, offset, width, height,  count, rotaton)
+            draw_rectangle_pattern(center_x, center_y, offset, width, height,  count, rotation)
         else:
             draw_circle_pattern(center_x, center_y, offset, radius, count)
 
