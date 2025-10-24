@@ -7,7 +7,7 @@ setup()
 reset() - Erase all of the patterns and start over
     draw a white rectangle to fill the screen
 
-draw_rectangle_pattern()           *fix "rotation", currently not used*
+draw_rectangle_pattern()
     1. parameters
         center position - x, y of circular pattern
         offset - distance from center to top left corner of rectangle at 0 theta
