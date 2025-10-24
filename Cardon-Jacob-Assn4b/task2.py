@@ -1,7 +1,6 @@
 # Jacob Cardon
 # CS1400 - MWF - 8:30am
 import pattern
-from pattern import draw_super_pattern
 
 
 def main():
@@ -58,7 +57,6 @@ def main():
             print("You chose Super Pattern")
             #### Add Input Statement(s) as needed ####
             num = int(input("Number? "))
-            draw_super_pattern(num)
             #### End Add Inputs Statement(s) ####
 
             # Draw super pattern

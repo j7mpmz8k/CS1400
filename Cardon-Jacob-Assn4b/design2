@@ -39,7 +39,10 @@ draw_circle_pattern()
             ii. y is y_from_0 + center_y
 
 draw_super_pattern()
-    Parameter is the number of patterns to draw
-    Use default of 5
-    Randomly draw Rectangle and Circle patterns. Each pattern should be based on random values.
-    Use reasonable random values (some can be negative) so patterns are drawn on the screen
+    1. Parameter
+        number of patterns to draw - default is 5
+    2. itterate loop equal to user input of number of patterns to draw
+        a. set up random values for all arguments of draw_rectangle_pattern() and draw_circle_pattern()
+        b. randomly choose between 0 or 1
+            i. call draw_rectangle_pattern() if 0
+            ii. call draw_circle_pattern() if 1

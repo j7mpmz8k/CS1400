@@ -17,9 +17,7 @@ def reset():
     """
     erases all patterns, resetting background to white
     """
-    drawly.set_color("white")
-    drawly.rectangle(0, 0, 720, 1280)
-    drawly.draw()
+    drawly.redraw()
 
 def draw_rectangle_pattern(center_x:int, center_y:int, offset:int, width:int, height:int,  count:int, rotaton:int) -> None:
     """
@@ -64,7 +62,7 @@ def draw_super_pattern(pattern_count:int=5) -> None:
         height = randint(10, 100)
         radius = randint(10, 100)
         count = randint(3, 50)
-        rotation = randint(0, 360)
+        rotation = randint(-360, 360)
         #randomly chooses between rectangle and circle patterns to draw
         if random_function == 1:
             draw_rectangle_pattern(center_x, center_y, offset, width, height,  count, rotation)
