@@ -1,0 +1,68 @@
+setup()
+    Call drawly.start()
+    Set a window title
+    Set speed to 10 to make life less painful
+    Use default window sizes (do nothing special)
+
+reset() - Erase all of the patterns and start over
+    draw a white rectangle to fill the screen
+
+draw_rectangle_pattern()           *fix "rotation", currently not used*
+    1. parameters
+        center position - x, y of circular pattern
+        offset - distance from center to top left corner of rectangle at 0 theta
+        width - width of rectangle at 0 theta
+        height - height of rectangle at 0 theta
+        count - number of rectangles to draw
+        rotation - number of degrees to rotate rectangle at 0 theta
+            a. incrimentaly rotate each following rectangle by (360 / count)
+    2. create loop count number of times with loop value equal to 360 / count (must allow floats & start at 0)
+        Note: since range() does not allow fractional stepsize, create list of floats incrimentting each by 360/count
+        a. call get_distance_point() to find x,y relative to 0, 0
+            i. set distance argument to offset + height
+            ii. set angle argument to loop value
+            iii. return x_from_0, y_from_0
+        c. call set_random_color()
+        d. call rectangle()
+            i. x is x_from_0 + center_x
+            ii. y is y_from_0 + center_y
+            iii. rotation is equal to loop value * -1 + rotation input * -1(make sure to round)
+            iv. rotate from top left corner of rectangle at 0 theta(instead of center)
+
+
+
+draw_circle_pattern()
+    See additional information below
+    1. parameters
+        center position - x, y of circular pattern
+        offset - distance from center to nearest point of any circle
+        radius - radius of each circle
+        count - number of circles to draw
+    2. create loop count number of times with loop value equal to 360 / count (must allow floats & start at 0)
+        Note: since range() does not allow fractional stepsize, create list of floats incrimentting each by 360/count
+        a. call get_distance_point() to find x,y relative to 0, 0
+            i. set distance argument to offset + radius
+            ii. set angle argument to loop value
+            iii. return x_from_0, y_from_0
+        c. call set_random_color()
+        d. call draw_circle() with x, y, radius
+            i. x is x_from_0 + center_x
+            ii. y is y_from_0 + center_y
+
+
+draw_super_pattern()
+    Parameter is the number of patterns to draw
+    Use default of 5
+    Randomly draw Rectangle and Circle patterns. Each pattern should be based on random values.
+    Use reasonable random values (some can be negative) so patterns are drawn on the screen
+
+set_random_color()
+    1. create list of strings for possible colors
+    3. set color to randomly chosen color
+
+get_distance_point(distance, angle)
+    1. parameters
+        distance - distance from center of circle
+        angle - angle in degrees
+    2. calculate x and y coordinates of point on circle relative to 0, 0
+    3. return x and y coordinates
