@@ -5,7 +5,7 @@ import drawly
 
 def draw_chessboard(start_x:int, start_y:int, width:int=250, height:int=250):
     """Draws a chessboard with black and white tiles with a black border. Calls all other draw functions for board."""
-    drawly.start(title="chessmate", dimensions=(1280, 720), background="white")
+    drawly.start(title="chessmate", background="white")
     drawly.set_speed(10)
     draw_rectangle(start_x, start_y, width, height, border=True)#boarder outline
     draw_all_rectangles(start_x, start_y, width, height)
