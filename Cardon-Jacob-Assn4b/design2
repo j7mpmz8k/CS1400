@@ -1,12 +1,3 @@
-setup()
-    Call drawly.start()
-    Set a window title
-    Set speed to 10 to make life less painful
-    Use default window sizes (do nothing special)
-
-reset() - Erase all of the patterns and start over
-    draw a white rectangle to fill the screen
-
 draw_rectangle_pattern()
     1. parameters
         center position - x, y of circular pattern
@@ -29,8 +20,6 @@ draw_rectangle_pattern()
             iii. rotation is equal to loop value * -1 + rotation input * -1(make sure to round)
             iv. rotate from top left corner of rectangle at 0 theta(instead of center)
 
-
-
 draw_circle_pattern()
     See additional information below
     1. parameters
@@ -49,20 +38,8 @@ draw_circle_pattern()
             i. x is x_from_0 + center_x
             ii. y is y_from_0 + center_y
 
-
 draw_super_pattern()
     Parameter is the number of patterns to draw
     Use default of 5
     Randomly draw Rectangle and Circle patterns. Each pattern should be based on random values.
     Use reasonable random values (some can be negative) so patterns are drawn on the screen
-
-set_random_color()
-    1. create list of strings for possible colors
-    3. set color to randomly chosen color
-
-get_distance_point(distance, angle)
-    1. parameters
-        distance - distance from center of circle
-        angle - angle in degrees
-    2. calculate x and y coordinates of point on circle relative to 0, 0
-    3. return x and y coordinates
