@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5acf854a-b995-466e-a4b4-7d6913300b22" name="Changes" comment="" />
+    <list default="true" id="5acf854a-b995-466e-a4b4-7d6913300b22" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Cardon-Jacob-Assn5a/task1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Class-Assn/boing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class-Assn/_showyourwork.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/Class-Assn/_showyourwork.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_showyourwork.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/_showyourwork.sqlite" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 1
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "j7mpmz8k"
+  }
 }]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/j7mpmz8k/CS1400.git",
+    "accountId": "f77ba388-bc2e-4181-b816-17f33e56d975"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="34Mj7jsh8azrijZGn9pRziXpl0m" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -24,9 +48,15 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultAutoModeForALLUsers.v1": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/crostini/Github",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/home/crostini/Github/CS1400/Cardon-Jacob-Assn5a",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "settings.editor.selected.configurable": "preferences.lookFeel",
+    "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -46,6 +76,7 @@
       <option name="presentableId" value="Default" />
       <updated>1761030173561</updated>
       <workItem from="1761030186352" duration="84000" />
+      <workItem from="1761750578624" duration="102000" />
     </task>
     <servers />
   </component>
