@@ -1,8 +1,7 @@
 # Jacob Cardon
 # CS1400 - MWF - 8:30am
 import pygame
-
-import player
+from math import dist
 from player import Player, make_player, move_player
 from enemy import Enemy, make_enemy, move_enemy
 from treasure import Treasure, make_treasure
@@ -22,7 +21,6 @@ def main():
     ##########
     # Set up game media images, sounds
     ##########
-    pig = pygame.image.load("task1_assets/pig.png")
 
     boing = pygame.mixer.Sound("task1_assets/boing.mp3")
 
@@ -33,9 +31,10 @@ def main():
     ##########
     # Set up game data
     ##########
-    bomb_move = (10, 5)#direction and speed
+    bomb_move = [10, 5]#direction and speed
     person_move = 5  # just speed
     person = make_player("task1_assets/pig.png")
+    bomb = make_enemy("task1_assets/pig.png")
     ##########
     # Game Loop
     ##########
@@ -54,24 +53,29 @@ def main():
                 if event.key == pygame.K_SPACE and game_over:
                     ### Do Stuff to Reset Game ###
                     game_over = False
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_w]:
-            move_player(person, [0, -person_move])
-        if keys[pygame.K_s]:
-            move_player(person, [0, person_move])
-        if keys[pygame.K_a]:
-            move_player(person, [-person_move, 0])
-        if keys[pygame.K_d]:
-            move_player(person, [person_move, 0])
+        if not game_over:
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_w] or keys[pygame.K_UP]:
+                move_player(person, [0, -person_move])
+            if keys[pygame.K_s] or keys[pygame.K_DOWN]:
+                move_player(person, [0, person_move])
+            if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+                move_player(person, [-person_move, 0])
+            if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+                move_player(person, [person_move, 0])
 
         ##########
         # Update state of components/data
         ##########
         #### Always Update ####
 
+        game_over = True if dist(bomb.center_pos, person.center_pos) <= bomb.radius + person.radius else not True
+
         #### Update if Game is Not Over ####
         if not game_over:
-            pass
+            bomb_move[0] *= -1 if bomb.is_off_screen(bomb_move)[0] else 1
+            bomb_move[1] *= -1 if bomb.is_off_screen(bomb_move)[1] else 1
+            move_enemy(bomb, bomb_move)
         #### Update if Game is Over ####
         else:
             pass
@@ -81,6 +85,7 @@ def main():
         ##########
         #### Always Display ####
 
+
         #### Display while Game is being played ####
         if not game_over:
             pass
@@ -88,9 +93,11 @@ def main():
         else:
             pass
 
+
         #### Draw changes the screen ####
         screen.fill("white")  # Filling the screen wipes out any previous screen content
-        screen.blit(pig, person.draw_pos)
+        screen.blit(person.picture, person.draw_pos)
+        screen.blit(bomb.picture, bomb.draw_pos)
         pygame.display.flip()
 
         ##########

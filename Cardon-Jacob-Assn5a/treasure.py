@@ -13,6 +13,7 @@ def make_treasure(png):
     treasure = Treasure()
     width:int = pygame.image.load(png).get_width()
     height:int = pygame.image.load(png).get_height()
+    treasure.picture = pygame.image.load(png)
     treasure.radius = round(min(width, height) / 2)
     treasure.center_pos = [randint(0 + treasure.radius, SCREEN_WIDTH - treasure.radius),
                            randint(0 + treasure.radius, SCREEN_HEIGHT - treasure.radius)]
