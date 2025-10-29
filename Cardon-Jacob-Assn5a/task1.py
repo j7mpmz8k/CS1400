@@ -1,8 +1,10 @@
 # Jacob Cardon
 # CS1400 - MWF - 8:30am
 import pygame
-from player import Player, make_player
-from enemy import Enemy, make_enemy
+
+import player
+from player import Player, make_player, move_player
+from enemy import Enemy, make_enemy, move_enemy
 from treasure import Treasure, make_treasure
 
 SCREEN_WIDTH = 600  # Use constants here to be able to use in different places
@@ -20,6 +22,8 @@ def main():
     ##########
     # Set up game media images, sounds
     ##########
+    pig = pygame.image.load("task1_assets/pig.png")
+
     boing = pygame.mixer.Sound("task1_assets/boing.mp3")
 
     pygame.mixer.music.load("task1_assets/music.mp3")
@@ -29,7 +33,9 @@ def main():
     ##########
     # Set up game data
     ##########
-
+    bomb_move = (10, 5)#direction and speed
+    person_move = 5  # just speed
+    person = make_player("task1_assets/pig.png")
     ##########
     # Game Loop
     ##########
@@ -48,6 +54,15 @@ def main():
                 if event.key == pygame.K_SPACE and game_over:
                     ### Do Stuff to Reset Game ###
                     game_over = False
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_w]:
+            move_player(person, [0, -person_move])
+        if keys[pygame.K_s]:
+            move_player(person, [0, person_move])
+        if keys[pygame.K_a]:
+            move_player(person, [-person_move, 0])
+        if keys[pygame.K_d]:
+            move_player(person, [person_move, 0])
 
         ##########
         # Update state of components/data
@@ -74,6 +89,8 @@ def main():
             pass
 
         #### Draw changes the screen ####
+        screen.fill("white")  # Filling the screen wipes out any previous screen content
+        screen.blit(pig, person.draw_pos)
         pygame.display.flip()
 
         ##########
