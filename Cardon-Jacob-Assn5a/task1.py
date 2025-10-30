@@ -83,8 +83,9 @@ def main():
                 pygame.mixer.Sound.play(boing)
             move_enemy(ninja, ninja_move)
             for i in treasure_list:
-                if did_touch(alien, i):
+                if did_touch(alien, i) and not i.is_collected:
                     pygame.mixer.Sound.play(collected)
+                    i.is_collected = True
 
         #### Update if Game is Over ####
         else:
@@ -109,7 +110,7 @@ def main():
         screen.blit(alien.picture, alien.draw_pos)
         screen.blit(ninja.picture, ninja.draw_pos)
         for treasure in treasure_list:
-            screen.blit(treasure.picture, treasure.draw_pos)
+            screen.blit(treasure.picture, treasure.draw_pos) if not treasure.is_collected else None
         pygame.display.flip()
 
         ##########

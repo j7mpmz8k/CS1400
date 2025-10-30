@@ -19,4 +19,5 @@ def make_treasure(png) -> object:
                            randint(0 + treasure.radius, SCREEN_HEIGHT - treasure.radius)]
     treasure.draw_pos = [treasure.center_pos[0] - treasure.radius,
                          treasure.center_pos[1] - treasure.radius]
+    treasure.is_collected = False
     return treasure
