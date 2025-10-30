@@ -1,6 +1,7 @@
 # Jacob Cardon
 # CS1400 - MWF - 8:30am
 import pygame
+from math import dist
 
 SCREEN_WIDTH = 600  # Use constants here to be able to use in different places
 SCREEN_HEIGHT = 600
@@ -10,7 +11,7 @@ class Player:
         self.draw_pos = [self.center_pos[0] - self.radius,
                          self.center_pos[1] - self.radius]
 
-def make_player(png):
+def make_player(png) -> object:
     player = Player()
     width: int = pygame.image.load(png).get_width()
     height: int = pygame.image.load(png).get_height()
@@ -29,3 +30,6 @@ def move_player(player: object, direction: list) -> None:
         player.center_pos[0] = new_x
         player.center_pos[1] = new_y
         player.update_draw_pos()
+
+def did_touch(player, item) -> bool:
+    return dist(player.center_pos, item.center_pos) <= player.radius + item.radius

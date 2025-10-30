@@ -1,8 +1,7 @@
 # Jacob Cardon
 # CS1400 - MWF - 8:30am
 import pygame
-from math import dist
-from player import Player, make_player, move_player
+from player import Player, make_player, move_player, did_touch
 from enemy import Enemy, make_enemy, move_enemy
 from treasure import Treasure, make_treasure
 
@@ -22,19 +21,22 @@ def main():
     # Set up game media images, sounds
     ##########
 
+    collected = pygame.mixer.Sound("task1_assets/collected.wav")
     boing = pygame.mixer.Sound("task1_assets/boing.mp3")
 
-    pygame.mixer.music.load("task1_assets/music.mp3")
+    pygame.mixer.music.load("task1_assets/Kim Lightyear - Starlight.mp3")
     pygame.mixer.music.set_volume(.5)
     pygame.mixer.music.play(-1) # -1 loops the music continuously
 
     ##########
     # Set up game data
     ##########
-    bomb_move = [10, 5]#direction and speed
-    person_move = 5  # just speed
-    person = make_player("task1_assets/pig.png")
-    bomb = make_enemy("task1_assets/pig.png")
+    ninja_move = [10, 5]#direction and speed
+    alien_move = 5  # just speed
+    ninja = make_enemy("task1_assets/ninja.png")
+    alien = make_player("task1_assets/spaceship.png")
+    treasure_list = [make_treasure("task1_assets/pig.png") for i in range(10)]
+
     ##########
     # Game Loop
     ##########
@@ -56,26 +58,34 @@ def main():
         if not game_over:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_w] or keys[pygame.K_UP]:
-                move_player(person, [0, -person_move])
+                move_player(alien, [0, -alien_move])
             if keys[pygame.K_s] or keys[pygame.K_DOWN]:
-                move_player(person, [0, person_move])
+                move_player(alien, [0, alien_move])
             if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-                move_player(person, [-person_move, 0])
+                move_player(alien, [-alien_move, 0])
             if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-                move_player(person, [person_move, 0])
+                move_player(alien, [alien_move, 0])
 
         ##########
         # Update state of components/data
         ##########
         #### Always Update ####
 
-        game_over = True if dist(bomb.center_pos, person.center_pos) <= bomb.radius + person.radius else not True
 
         #### Update if Game is Not Over ####
         if not game_over:
-            bomb_move[0] *= -1 if bomb.is_off_screen(bomb_move)[0] else 1
-            bomb_move[1] *= -1 if bomb.is_off_screen(bomb_move)[1] else 1
-            move_enemy(bomb, bomb_move)
+            game_over = True if did_touch(alien, ninja) else not True
+            if ninja.is_off_screen(ninja_move)[0]:
+                ninja_move[0] *= -1
+                pygame.mixer.Sound.play(boing)
+            if ninja.is_off_screen(ninja_move)[1]:
+                ninja_move[1] *= -1
+                pygame.mixer.Sound.play(boing)
+            move_enemy(ninja, ninja_move)
+            for i in treasure_list:
+                if did_touch(alien, i):
+                    pygame.mixer.Sound.play(collected)
+
         #### Update if Game is Over ####
         else:
             pass
@@ -96,8 +106,10 @@ def main():
 
         #### Draw changes the screen ####
         screen.fill("white")  # Filling the screen wipes out any previous screen content
-        screen.blit(person.picture, person.draw_pos)
-        screen.blit(bomb.picture, bomb.draw_pos)
+        screen.blit(alien.picture, alien.draw_pos)
+        screen.blit(ninja.picture, ninja.draw_pos)
+        for treasure in treasure_list:
+            screen.blit(treasure.picture, treasure.draw_pos)
         pygame.display.flip()
 
         ##########
