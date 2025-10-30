@@ -11,7 +11,7 @@ class Player:
         self.draw_pos = [self.center_pos[0] - self.radius,
                          self.center_pos[1] - self.radius]
 
-def make_player(png) -> object:
+def make_player(png:str) -> object:
     player = Player()
     width: int = pygame.image.load(png).get_width()
     height: int = pygame.image.load(png).get_height()
@@ -31,5 +31,5 @@ def move_player(player: object, direction: list) -> None:
         player.center_pos[1] = new_y
         player.update_draw_pos()
 
-def did_touch(player, item) -> bool:
+def did_touch(player:object, item:object) -> bool:
     return dist(player.center_pos, item.center_pos) <= player.radius + item.radius

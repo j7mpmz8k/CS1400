@@ -9,7 +9,7 @@ SCREEN_HEIGHT = 600
 class Treasure:
     pass
 
-def make_treasure(png) -> object:
+def make_treasure(png:str) -> object:
     treasure = Treasure()
     width:int = pygame.image.load(png).get_width()
     height:int = pygame.image.load(png).get_height()

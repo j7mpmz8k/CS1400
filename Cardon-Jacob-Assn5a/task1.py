@@ -1,9 +1,9 @@
 # Jacob Cardon
 # CS1400 - MWF - 8:30am
 import pygame
-from player import Player, make_player, move_player, did_touch
-from enemy import Enemy, make_enemy, move_enemy
-from treasure import Treasure, make_treasure
+from player import make_player, move_player, did_touch
+from enemy import make_enemy, move_enemy
+from treasure import make_treasure
 
 SCREEN_WIDTH = 600  # Use constants here to be able to use in different places
 SCREEN_HEIGHT = 600
@@ -75,10 +75,10 @@ def main():
         #### Update if Game is Not Over ####
         if not game_over:
             game_over = True if did_touch(alien, ninja) else not True
-            if ninja.is_off_screen(ninja_move)[0]:
+            if not ninja.is_on_screen(ninja_move)[0]:
                 ninja_move[0] *= -1
                 pygame.mixer.Sound.play(boing)
-            if ninja.is_off_screen(ninja_move)[1]:
+            if not ninja.is_on_screen(ninja_move)[1]:
                 ninja_move[1] *= -1
                 pygame.mixer.Sound.play(boing)
             move_enemy(ninja, ninja_move)
