@@ -8,7 +8,7 @@ from treasure import *
 SCREEN_WIDTH = 600  # Use constants here to be able to use in different places
 SCREEN_HEIGHT = 600
 CLOCK_TICK = 30
-TITLE = "Window Name"
+TITLE = "Collector Game"
 
 def main():
     # Setup the pygame window and clock
