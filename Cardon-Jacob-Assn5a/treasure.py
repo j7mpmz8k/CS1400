@@ -7,7 +7,8 @@ SCREEN_WIDTH = 600  # Use constants here to be able to use in different places
 SCREEN_HEIGHT = 600
 
 class Treasure:
-    pass
+    def reset(self) -> None:
+        self.is_collected = False
 
 def make_treasure(png:str) -> object:
     treasure = Treasure()

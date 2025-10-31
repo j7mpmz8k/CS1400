@@ -8,8 +8,12 @@ SCREEN_HEIGHT = 600
 
 class Player:
     def update_draw_pos(self) -> None:
+        """never called directly, called by move_player() and .reset()"""
         self.draw_pos = [self.center_pos[0] - self.radius,
                          self.center_pos[1] - self.radius]
+    def reset(self) -> None:
+        self.center_pos = [SCREEN_WIDTH / 2, SCREEN_HEIGHT - self.radius]
+        self.update_draw_pos()
 
 def make_player(png:str) -> object:
     player = Player()
