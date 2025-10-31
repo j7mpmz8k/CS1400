@@ -19,10 +19,10 @@ def make_treasure(picture_file:str) -> object:
     height:int = treasure.picture.get_height()
     x_radius:float = width / 2
     y_radius:float = height / 2
-    treasure.radius = round(min(x_radius, y_radius))
-    treasure.center_pos = [randint(0 + treasure.radius, SCREEN_WIDTH - treasure.radius),
-                           randint(0 + treasure.radius, SCREEN_HEIGHT - treasure.radius)]
-    treasure.draw_pos = [treasure.center_pos[0] - treasure.radius,
-                         treasure.center_pos[1] - treasure.radius]
+    treasure.radius = min(x_radius, y_radius)
+    treasure.center_pos = [randint(round(0 + x_radius), round(SCREEN_WIDTH - x_radius)), #randomly positioned on screen
+                           randint(round(0 + y_radius), round(SCREEN_HEIGHT - y_radius))]
+    treasure.draw_pos = [treasure.center_pos[0] - x_radius,#caluclated from center position
+                         treasure.center_pos[1] - y_radius]
     treasure.is_collected = False
     return treasure

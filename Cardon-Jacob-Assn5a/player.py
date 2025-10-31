@@ -9,11 +9,11 @@ SCREEN_HEIGHT = 600
 class Player:
     def update_draw_pos(self) -> None:
         """never called directly, called by move_player() and .reset()"""
-        self.draw_pos = [self.center_pos[0] - self.radius,
-                         self.center_pos[1] - self.radius]
+        self.draw_pos = [self.center_pos[0] - self.x_radius,
+                         self.center_pos[1] - self.y_radius]
     def reset(self) -> None:
         """resets center and drawing position to initialization"""
-        self.center_pos = [SCREEN_WIDTH / 2, SCREEN_HEIGHT - self.radius]
+        self.center_pos = [SCREEN_WIDTH / 2, SCREEN_HEIGHT - self.y_radius]
         self.update_draw_pos()
 
 def make_player(picture_file:str) -> object:
@@ -22,12 +22,12 @@ def make_player(picture_file:str) -> object:
     player.picture = pygame.image.load(picture_file)
     width:int = player.picture.get_width()
     height:int = player.picture.get_height()
-    x_radius:float = width / 2
-    y_radius:float = height / 2
-    player.radius = min(x_radius, y_radius)
-    player.center_pos = [SCREEN_WIDTH / 2, SCREEN_HEIGHT - y_radius]#centered at bottom of screen
-    player.draw_pos = [player.center_pos[0] - x_radius,#caluclated from center position
-                       player.center_pos[1] - y_radius]
+    player.x_radius = width / 2
+    player.y_radius = height / 2
+    player.radius = min(player.x_radius, player.y_radius)
+    player.center_pos = [SCREEN_WIDTH / 2, SCREEN_HEIGHT - player.y_radius]#centered at bottom of screen
+    player.draw_pos = [player.center_pos[0] - player.x_radius,#caluclated from center position
+                       player.center_pos[1] - player.y_radius]
     return player
 
 def move_player(player: object, direction: list) -> None:
