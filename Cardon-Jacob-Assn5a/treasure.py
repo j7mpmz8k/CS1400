@@ -8,14 +8,18 @@ SCREEN_HEIGHT = 600
 
 class Treasure:
     def reset(self) -> None:
+        """Resets bool value of collected status to False"""
         self.is_collected = False
 
-def make_treasure(png:str) -> object:
+def make_treasure(picture_file:str) -> object:
+    """makes treasure object and returns it. Sets up treasure's initial position, radius, and draw position."""
     treasure = Treasure()
-    width:int = pygame.image.load(png).get_width()
-    height:int = pygame.image.load(png).get_height()
-    treasure.picture = pygame.image.load(png)
-    treasure.radius = round(min(width, height) / 2)
+    treasure.picture = pygame.image.load(picture_file)
+    width:int = treasure.picture.get_width()
+    height:int = treasure.picture.get_height()
+    x_radius:float = width / 2
+    y_radius:float = height / 2
+    treasure.radius = round(min(x_radius, y_radius))
     treasure.center_pos = [randint(0 + treasure.radius, SCREEN_WIDTH - treasure.radius),
                            randint(0 + treasure.radius, SCREEN_HEIGHT - treasure.radius)]
     treasure.draw_pos = [treasure.center_pos[0] - treasure.radius,

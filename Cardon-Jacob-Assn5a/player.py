@@ -12,21 +12,28 @@ class Player:
         self.draw_pos = [self.center_pos[0] - self.radius,
                          self.center_pos[1] - self.radius]
     def reset(self) -> None:
+        """resets center and drawing position to initialization"""
         self.center_pos = [SCREEN_WIDTH / 2, SCREEN_HEIGHT - self.radius]
         self.update_draw_pos()
 
-def make_player(png:str) -> object:
+def make_player(picture_file:str) -> object:
+    """initializes player object and returns it. Sets up player's initial position, radius, and draw position."""
     player = Player()
-    width: int = pygame.image.load(png).get_width()
-    height: int = pygame.image.load(png).get_height()
-    player.picture = pygame.image.load(png)
-    player.radius = min(width, height) / 2
-    player.center_pos = [SCREEN_WIDTH / 2, SCREEN_HEIGHT - player.radius]
-    player.draw_pos = [player.center_pos[0] - player.radius,
-                       player.center_pos[1] - player.radius]
+    player.picture = pygame.image.load(picture_file)
+    width:int = player.picture.get_width()
+    height:int = player.picture.get_height()
+    x_radius:float = width / 2
+    y_radius:float = height / 2
+    player.radius = min(x_radius, y_radius)
+    player.center_pos = [SCREEN_WIDTH / 2, SCREEN_HEIGHT - y_radius]#centered at bottom of screen
+    player.draw_pos = [player.center_pos[0] - x_radius,#caluclated from center position
+                       player.center_pos[1] - y_radius]
     return player
 
 def move_player(player: object, direction: list) -> None:
+    """
+    Updates center x,y postions and drawing start position. Displayed on screen at end of game loop
+    """
     new_x = player.center_pos[0] + direction[0]
     new_y = player.center_pos[1] + direction[1]
     # updates x & y position if player is within the screen
@@ -36,4 +43,5 @@ def move_player(player: object, direction: list) -> None:
         player.update_draw_pos()
 
 def did_touch(player:object, item:object) -> bool:
+    """returns True if player and specified item are within radius distance of each other"""
     return dist(player.center_pos, item.center_pos) <= player.radius + item.radius

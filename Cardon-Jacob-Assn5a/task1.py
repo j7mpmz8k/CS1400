@@ -20,29 +20,32 @@ def main():
     ##########
     # Set up game media images, sounds
     ##########
-    background = pygame.image.load("task1_assets/earth.jpg")
+    #background image
+    background = pygame.image.load("assets1/earth.jpg")
     background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
-    collected_sound = pygame.mixer.Sound("task1_assets/collected.wav")
+    #sound effects(collected, bounce, defeat, victory sounds)
+    collected_sound = pygame.mixer.Sound("assets1/collected.wav")
     collected_sound.set_volume(1.3)
-    boing = pygame.mixer.Sound("task1_assets/boing.mp3")
+    boing = pygame.mixer.Sound("assets1/boing.mp3")
     boing.set_volume(.3)
-    defeat_sound = pygame.mixer.Sound("task1_assets/losetrumpet.mp3")
-    victory_sound = pygame.mixer.Sound("task1_assets/Win sound.wav")
+    defeat_sound = pygame.mixer.Sound("assets1/losetrumpet.mp3")
+    victory_sound = pygame.mixer.Sound("assets1/Win sound.wav")
 
-
-    pygame.mixer.music.load("task1_assets/Kim Lightyear - Starlight.mp3")
+    #background music
+    pygame.mixer.music.load("assets1/Kim Lightyear - Starlight.mp3")
     pygame.mixer.music.set_volume(.5)
     pygame.mixer.music.play(-1) # -1 loops the music continuously
 
+    #text for game over messages(winning and loosing)
     font = pygame.font.SysFont("Comic Sans MS", 48, True)  # Font name and size
     text_color = (0, 0, 0)  # black
-
-    losing_msg = font.render("Game Over! You lose!", True, text_color)  # Antialias enabled
-    losing_msg_pos = losing_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-
-    winning_msg = font.render("Game Over! You win!", True, text_color)  # Antialias enabled
-    winning_msg_pos = winning_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+    #losing message
+    losing_msg = font.render("Game Over! You lose", True, text_color)
+    losing_msg_pos = losing_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))#draw pos to center on screen
+    #winning message
+    winning_msg = font.render("Game Over. You win!", True, text_color)
+    winning_msg_pos = winning_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))#draw pos to center on screen
 
 
 
@@ -52,10 +55,13 @@ def main():
     ##########
     ninja_move = [12,-8]#direction and speed
     alien_move = 5  # just speed
-    ninja = make_enemy("task1_assets/ninja.png")
-    alien = make_player("task1_assets/spaceship.png")
-    treasure_list = [make_treasure("task1_assets/pig.png") for i in range(10)]
-    collected_list = []
+
+    #makes all game objects with 10 treasures(pigs) to collect
+    ninja = make_enemy("assets1/ninja.png")
+    alien = make_player("assets1/spaceship.png")
+    treasure_list = [make_treasure("assets1/pig.png") for i in range(10)]
+
+    collected_list = []#running list of collected treasure objects. Resets when game is reset.
 
     ##########
     # Game Loop
@@ -69,21 +75,30 @@ def main():
         # Get Input/Events
         ##########
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:  # User clicked the window's X button
+            # User clicked the window's X button
+            if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
+                # quitting the game
                 if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
                     running = False
+                # resetting the game
                 if event.key == pygame.K_SPACE and game_over:
-                    ### Do Stuff to Reset Game ###
                     game_over = False
+                    game_won = None
+                    game_lost = None
+                    #puts all treasures back on screen
                     for treasure in treasure_list:
                         treasure.reset()
                     collected_list = []
+                    #resets to starting positions
                     ninja.reset()
                     alien.reset()
+
                     pygame.mixer.music.play(-1)
+
         if not game_over:
+            #player movement controls
             keys = pygame.key.get_pressed()
             if keys[pygame.K_w] or keys[pygame.K_UP]:
                 move_player(alien, [0, -alien_move])
@@ -102,26 +117,30 @@ def main():
 
         #### Update if Game is Not Over ####
         if not game_over:
-            if did_touch(alien, ninja):
-                game_over = True
-                game_lost = True
-                pygame.mixer.Sound.play(defeat_sound)
+            move_enemy(ninja, ninja_move)
+            #bouncing off the edges of the screen detection
             if not ninja.is_on_screen(ninja_move)[0]:
                 ninja_move[0] *= -1
                 pygame.mixer.Sound.play(boing)
             if not ninja.is_on_screen(ninja_move)[1]:
                 ninja_move[1] *= -1
                 pygame.mixer.Sound.play(boing)
-            move_enemy(ninja, ninja_move)
+            #collecting treasure detection
             for treasure in treasure_list:
                 if did_touch(alien, treasure) and not treasure.is_collected:
                     pygame.mixer.Sound.play(collected_sound)
                     treasure.is_collected = True
                     collected_list.append(treasure)
+            #winning condition check
             if len(collected_list) == len(treasure_list):
                 game_over = True
                 game_won = True
                 pygame.mixer.Sound.play(victory_sound)
+            #losing condition check
+            elif did_touch(alien, ninja):
+                game_over = True
+                game_lost = True
+                pygame.mixer.Sound.play(defeat_sound)
 
         #### Update if Game is Over ####
         else:
@@ -136,12 +155,14 @@ def main():
 
         #### Display while Game is being played ####
         if not game_over:
+            #draws player, enenemy, and remaining treasures
             screen.blit(alien.picture, alien.draw_pos)
             screen.blit(ninja.picture, ninja.draw_pos)
             for treasure in treasure_list:
                 screen.blit(treasure.picture, treasure.draw_pos) if not treasure.is_collected else None
         #### Display while Game is Over ####
         else:
+            #draws game over message
             screen.blit(losing_msg, losing_msg_pos) if game_lost else screen.blit(winning_msg, winning_msg_pos)
 
 
