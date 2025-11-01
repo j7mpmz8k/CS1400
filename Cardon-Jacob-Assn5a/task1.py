@@ -156,8 +156,7 @@ def main():
             #draws player, enenemy, and remaining treasures
             screen.blit(alien.picture, alien.draw_pos)
             screen.blit(ninja.picture, ninja.draw_pos)
-            for treasure in treasure_list:
-                screen.blit(treasure.picture, treasure.draw_pos) if not treasure.is_collected else None
+            [screen.blit(treasure.picture, treasure.draw_pos) for treasure in treasure_list]
         #### Display while Game is Over ####
         else:
             #draws game over message

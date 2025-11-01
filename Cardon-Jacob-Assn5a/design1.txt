@@ -19,6 +19,7 @@ File: task1.py
                 reset game
                     if game over and space pressed
                     reset positions of all entities to initial positions
+                    recreate treasure list
                     restart music
                 move player
                     left if a or left arrow pressed
