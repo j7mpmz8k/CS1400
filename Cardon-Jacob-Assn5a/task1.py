@@ -160,7 +160,8 @@ def main():
         #### Display while Game is Over ####
         else:
             #draws game over message
-            screen.blit(losing_msg, losing_msg_pos) if game_lost else screen.blit(winning_msg, winning_msg_pos)
+            screen.blit(losing_msg, losing_msg_pos) if game_lost else None
+            screen.blit(winning_msg, winning_msg_pos) if game_won else None
 
 
         #### Draw changes the screen ####
