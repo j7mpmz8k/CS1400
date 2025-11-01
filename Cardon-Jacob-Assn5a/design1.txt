@@ -37,9 +37,9 @@ File: task1.py
                         play defeat sound effect
                         stop game music
                     if player touches treasure in list
-                        flip is_collected flag for treasure object to be removed from display
+                        remove treasure from treasure_list
                         play treasure collection sound effect
-                        if all treasures collected
+                        if treasure list is empty
                             game won
                             play victory sound effect
                             stop game music
@@ -117,10 +117,6 @@ File: enemy.py
 
 File: treasure.py
     set up Treasure class
-        reset()
-            parameters: None
-            resets is_collected flag to False (only tresures with True are displayed)
-            returns: None
     functions:
         make_treasure()
             parameters: picture file

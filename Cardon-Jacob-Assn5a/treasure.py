@@ -7,9 +7,7 @@ SCREEN_WIDTH = 600  # Use constants here to be able to use in different places
 SCREEN_HEIGHT = 600
 
 class Treasure:
-    def reset(self) -> None:
-        """Resets bool value of collected status to False"""
-        self.is_collected = False
+    pass
 
 def make_treasure(picture_file:str) -> object:
     """makes treasure object and returns it. Sets up treasure's initial position, radius, and draw position."""

@@ -61,8 +61,6 @@ def main():
     alien = make_player("assets1/spaceship.png")
     treasure_list = [make_treasure("assets1/pig.png") for i in range(10)]
 
-    collected_list = []#running list of collected treasure objects. Resets when game is reset.
-
     ##########
     # Game Loop
     ##########
@@ -88,9 +86,7 @@ def main():
                     game_won = None
                     game_lost = None
                     #puts all treasures back on screen
-                    for treasure in treasure_list:
-                        treasure.reset()
-                    collected_list = []
+                    treasure_list = [make_treasure("assets1/pig.png") for i in range(10)]
                     #resets to starting positions
                     ninja.reset()
                     alien.reset()
@@ -126,13 +122,15 @@ def main():
                 ninja_move[1] *= -1
                 pygame.mixer.Sound.play(boing)
             #collecting treasure detection
+            temp_remaining_list = []
             for treasure in treasure_list:
-                if did_touch(alien, treasure) and not treasure.is_collected:
+                if did_touch(alien, treasure):
                     pygame.mixer.Sound.play(collected_sound)
-                    treasure.is_collected = True
-                    collected_list.append(treasure)
+                else:
+                    temp_remaining_list.append(treasure)
+            treasure_list = temp_remaining_list
             #winning condition check
-            if len(collected_list) == len(treasure_list):
+            if treasure_list == []:
                 game_over = True
                 game_won = True
                 pygame.mixer.Sound.play(victory_sound)
