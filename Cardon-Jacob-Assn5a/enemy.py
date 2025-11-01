@@ -9,7 +9,7 @@ class Enemy:
     def update_draw_pos(self) -> None:
         """never called directly, called by move_enemy() and .reset()"""
         self.draw_pos:list = [self.center_pos[0] - self.x_radius,
-                         self.center_pos[1] - self.y_radius]
+                              self.center_pos[1] - self.y_radius]
     def is_on_screen(self, direction:list) -> list[bool]:
         """returns two bool values representing if new x,y position is still on the screen."""
         in_x_axis = self.x_radius <= self.center_pos[0] + direction[0] <= SCREEN_WIDTH - self.x_radius

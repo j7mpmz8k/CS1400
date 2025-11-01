@@ -1,0 +1,148 @@
+Overview
+File: task1.py
+    global variables
+    main() function
+        initialize Pygame with window size, title, and clock speed
+        load all game assets, except entity images
+        set up winning/losing game over text messages
+        initialize move speed/direction for enemy and player relative to (0,0)
+        create player, enemy, and 10 treasures
+            inputs: picture file
+            call make_player() - alien
+            call make_enemy() - ninhja
+            call make_treasure() 10 times into a list - pig
+        initialize flags: game over, game_won, game_lost, running
+        main loop
+            user input
+                quit game
+                    if window closed, escape or q pressed
+                reset game
+                    if game over and space pressed
+                    reset positions of all entities to initial positions
+                    restart music
+                move player
+                    left if a or left arrow pressed
+                    right if d or right arrow pressed
+                    up if w or up arrow pressed
+                    down if s or down arrow pressed
+            update game data
+                move enemy
+                    call move_enemy()
+                    if touching edge of screen
+                        invert x or y direction (ie. x_dir * -1)
+                        play bounce sound effect
+                call did_touch()
+                    if player touches enemy
+                        game lost
+                        play defeat sound effect
+                        stop game music
+                    if player touches treasure in list
+                        flip is_collected flag for treasure object to be removed from display
+                        play treasure collection sound effect
+                        if all treasures collected
+                            game won
+                            play victory sound effect
+                            stop game music
+            update display
+                wipe display
+                if game over
+                    draw winning text if game won
+                    draw losing text if game lost
+                if not game over
+                    draw remaining treasures and new poisitions of player, enemy
+
+File: player.py
+    Set up Player class
+        update_draw_pos()
+            parameters: None
+            Never directly called. Updates draw position based on center position of player
+            returns: None
+        reset()
+            parameters: None
+            resets center player position to initial position
+            call update_draw_pos()
+            returns: None
+    functions:
+        make_player()
+            parameters: picture file
+            initializes player object
+                load image
+                radius is minimum of width and height of image
+                center position at bottom of screen
+                calculate draw position
+            returns: Player object
+        move_player()
+            parameters:
+                player object
+                x,y direction relative to 0,0
+            adds x,y direction to player position from player object only if not touching edge of screen
+            call .update_draw_pos()
+            returns: None
+        did_touch()
+            parameters:
+                player object
+                item object to check for collision with
+            calculate if is touching
+                algorithom: compare distance between player and item is less than sum of radius of player and item
+            return True if touching
+            return False if not touching
+
+File: enemy.py
+    Set up Enemy class
+        update_draw_pos()
+            parameters: None
+            Never directly called. Updates draw position based on center position of enemy
+            returns: None
+        reset()
+            parameters: None
+            resets center enemy position to initial position
+            call update_draw_pos()
+            returns: None
+    functions:
+        make_enemy()
+            parameters: picture file
+            initializes enemy object
+                load image
+                radius is minimum of width and height of image
+                center position at middle of screen
+                calculate draw position
+            returns: Player object
+        move_enemy()
+            parameters:
+                enemy object
+                x,y direction relative to 0,0
+            adds x,y direction to player position from enemy object
+            call .update_draw_pos()
+            returns: None
+
+File: treasure.py
+    set up Treasure class
+        reset()
+            parameters: None
+            resets is_collected flag to False (only tresures with True are displayed)
+            returns: None
+    functions:
+        make_treasure()
+            parameters: picture file
+            initializes treasure object
+                load image
+                radius is minimum of width and height of image
+                center position at random location on screen
+                calculate draw position
+                sets is_collected to False
+            returns: Treasure object
+
+Directory: assets1
+    sound effects
+        victory
+        defeat
+        wall bounce
+        treasure collection
+    background
+        music
+        image
+    entity images
+        player
+        enemy
+        treature
+
