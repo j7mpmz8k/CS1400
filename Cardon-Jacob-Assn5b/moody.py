@@ -13,7 +13,7 @@ class Moody:
         self.head_center_x = round(self.window_size[0] / 2)
         self.head_center_y = round(self.window_size[1] / 2)
 
-    def draw_arc(self, center_x_pos, center_y_pos, width, height, color="black", rotation=0, thickness=5) -> None:
+    def draw_arc(self, center_x_pos, center_y_pos, width, height, color="black", rotation=0, thickness=10) -> None:
         """At 0 rotation: start angle is 180 and end angle adds 360 for a horizontally leveled arc."""
         radius = width/2
         set_color(color)
@@ -37,10 +37,10 @@ class Moody:
         self.draw_face()
 
     def draw_head(self)->None:
-        set_color("black")
-        circle(self.head_center_x, self.head_center_y, self.head_size // 2, 2)
         set_color("yellow") if self.happy else set_color("red")
         circle(self.head_center_x, self.head_center_y, self.head_size // 2)
+        set_color("black")
+        circle(self.head_center_x, self.head_center_y, self.head_size // 2, 5)
 
     def draw_eyes(self)->None:
         radius = round(self.head_size * .10)
