@@ -21,13 +21,13 @@ class Cursor:
         if mode == "catching":
             collision_width = self.rect.width * .37
             collision_height = self.rect.height * 0.34
-            collision_x_offset = self.rect.width * .62 + collision_width
-            collision_y_offset = self.rect.height * .06 + collision_height
-            self.collision_rect = pygame.Rect(0, collision_y_offset, self.rect.width, collision_height)
+            collision_x_pos = self.rect.width * .62 + collision_width + self.rect.left
+            collision_y_pos= self.rect.height * .06 + collision_height + self.rect.top
+            self.collision_rect = pygame.Rect(collision_x_pos, collision_y_pos, collision_width, collision_height)
         elif mode == "killing":
             collision_height = self.rect.height * 0.2
-            collision_y_offset = self.rect.height * .03 + collision_height
-            self.collision_rect = pygame.Rect(0, collision_y_offset, self.rect.width, collision_height)
+            collision_y_pos = self.rect.height * .03 + collision_height + self.rect.top
+            self.collision_rect = pygame.Rect(self.rect.left, collision_y_pos, self.rect.width, collision_height)
 
     def update_pos(self, mouse_pos):
         """calculates draw position of cursor based on mouse position"""

@@ -2,6 +2,7 @@
 # CS1400 - MWF - 8:30am
 
 from cursor import *
+from critter import *
 
 SCREEN_WIDTH = 1280  # Use constants here to be able to use in different places
 SCREEN_HEIGHT = 720
