@@ -25,7 +25,9 @@ def main():
     net = Cursor(game_mode="catching", image_path="assets2/net.png", screen=screen, scale=.1)
     spray = Cursor(game_mode="killing", image_path="assets2/spray.png", screen=screen, scale=.05)
 
-    butterfly = Critter("good", "assets2/butterfly.png", screen, .05)
+    critter_images = ["assets2/butterfly.png", "assets2/wasp.png"]
+    critter_count = 10
+    critter_list = make_critter_list(10, screen, critter_images)
 
     background = pygame.image.load("assets2/background.jpg")
     background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -56,11 +58,30 @@ def main():
                     game_over = False
             if event.type == pygame.MOUSEMOTION:
                 cursor.update_pos(pygame.mouse.get_pos())
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    temp_list = []
+                    for critter in critter_list:
+                        if critter.did_get(cursor) == "good" and cursor == spray:
+                            game_over = True
+                        elif critter.did_get(cursor) == "bad" and cursor == net:
+                            game_over = True
+                        elif critter.did_get(cursor) == "good" and cursor == net:
+                            cursor = spray
+                        elif critter.did_get(cursor) == "bad" and cursor == spray:
+                            cursor = net
+                        elif not critter.did_get(cursor):
+                            temp_list.append(critter)
+                    critter_list = temp_list
+
 
         ##########
         # Update state of components/data
         ##########
         #### Always Update ####
+        for critter in critter_list:
+            critter.move_critter()
+            cursor.update_pos(pygame.mouse.get_pos())
 
         #### Update if Game is Not Over ####
         if not game_over:
@@ -78,6 +99,8 @@ def main():
         #### Display while Game is being played ####
         if not game_over:
             cursor.draw()
+            for critter in critter_list:
+                critter.draw()
         #### Display while Game is Over ####
         else:
             pass

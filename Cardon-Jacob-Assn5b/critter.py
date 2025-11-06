@@ -13,7 +13,7 @@ class Critter:
     image: Surface
     rect: Rect
     radius: float
-    move: tuple[int, int]
+    move: list[int]
     type: str
 
     def __init__(self, type:str, image_path:str, screen:Surface, scale:float=0.05):
@@ -27,7 +27,7 @@ class Critter:
         self.image = transform.scale(original_image, (new_width, new_height))
         self.rect = self.image.get_rect(center=(screen_width / 2, screen_height / 2))  # Directly set center position
         self.radius = min(self.rect.width / 2, self.rect.height / 2)  # Compute radius as half the smaller dimension
-        self.move = (randint(-15, 15), randint(-15, 15))
+        self.move = [randint(-15, 15), randint(-15, 15)]
         self.type = type
 
     def draw(self):
@@ -72,4 +72,14 @@ class Critter:
         Returns the critter type if it was hit
         Returns another value if it was not hit
         """
-        return self.type if dist(self.rect.center, cursor.collision_center) <= self.radius + cursor.collision_radius else False
+        did_get = dist(self.rect.center, cursor.collision_center) <= self.radius + cursor.collision_radius
+
+        return self.type if did_get else False
+
+def make_critter_list(count, screen, images) -> list[Critter]:
+    critter_list = []
+    for i in range(count // 2):
+        critter_list.append(Critter("good", images[0], screen))
+    for i in range(count // 2):
+        critter_list.append(Critter("bad", images[1], screen, .1))
+    return critter_list
