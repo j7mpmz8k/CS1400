@@ -13,9 +13,7 @@ class Cursor:
         new_width = int(SCREEN_WIDTH * scale)# Calculate target width (e.g., 5% of screen width)
         new_height = int(orig_height * (new_width / orig_width))# Calculate target height based on aspect ratio
         self.image = pygame.transform.scale(original_image, (new_width, new_height))
-        # self.pos = [0, 0]# draw position
         self.rect = self.image.get_rect()
-        # self.offset = [-self.rect.width / 2, -self.rect.height / 2]
 
 
         # Add collision bounding box attribute

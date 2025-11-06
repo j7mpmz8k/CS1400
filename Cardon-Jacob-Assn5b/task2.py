@@ -67,7 +67,7 @@ def main():
         # Update Display
         ##########
         #### Always Display ####
-        screen.fill("white")
+        screen.fill("black")
 
         #### Display while Game is being played ####
         if not game_over:
