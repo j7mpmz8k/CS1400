@@ -3,6 +3,7 @@
 
 from random import randint
 import pygame
+from math import dist
 
 screen_width = 0
 screen_height = 0
@@ -64,4 +65,4 @@ class Critter:
         Returns the critter type if it was hit
         Returns another value if it was not hit
         """
-        return self.type if self.rect.colliderect(cursor.collision_rect) else False
+        return self.type if dist(self.rect.center, cursor.collision_pos) <= self.radius + cursor.collision_radius else False
