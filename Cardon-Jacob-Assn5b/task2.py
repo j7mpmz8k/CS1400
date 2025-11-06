@@ -21,14 +21,16 @@ def main():
     # Set up game media images, sounds
     ##########
 
-    net = Cursor("catching", "assets2/net.png", screen, .05)
-    spray = Cursor("killing", "assets2/spray.png", screen, .025)
+    net = Cursor("catching", "assets2/net.png", screen, .1)
+    spray = Cursor("killing", "assets2/spray.png", screen, .05)
+    background = pygame.image.load("assets2/background.jpg")
+    background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
     ##########
     # Set up game data
     ##########
 
-    cursor = spray
+    cursor = net
 
     ##########
     # Game Loop
@@ -67,7 +69,7 @@ def main():
         # Update Display
         ##########
         #### Always Display ####
-        screen.fill("black")
+        screen.blit(background, (0, 0))
 
         #### Display while Game is being played ####
         if not game_over:

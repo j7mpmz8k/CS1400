@@ -65,4 +65,4 @@ class Critter:
         Returns the critter type if it was hit
         Returns another value if it was not hit
         """
-        return self.type if dist(self.rect.center, cursor.collision_pos) <= self.radius + cursor.collision_radius else False
+        return self.type if dist(self.rect.center, cursor.collision_center) <= self.radius + cursor.collision_radius else False
