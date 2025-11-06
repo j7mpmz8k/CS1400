@@ -4,6 +4,7 @@
 from critter import *
 from cursor import *
 import pygame
+from time import time
 
 SCREEN_WIDTH = 1280  # Use constants here to be able to use in different places
 SCREEN_HEIGHT = 720
@@ -37,12 +38,14 @@ def main():
     ##########
 
     cursor = net
+    time_start = round(time(), 2)
 
     ##########
     # Game Loop
     ##########
     game_over = False
     running = True
+    game_won = None
     while running:
         ##########
         # Get Input/Events
@@ -64,8 +67,10 @@ def main():
                     for critter in critter_list:
                         if critter.did_get(cursor) == "good" and cursor == spray:
                             game_over = True
+                            losing_msg = "You killed a butterfly!"
                         elif critter.did_get(cursor) == "bad" and cursor == net:
                             game_over = True
+                            losing_msg = "You caught a wasp!"
                         elif critter.did_get(cursor) == "good" and cursor == net:
                             cursor = spray
                         elif critter.did_get(cursor) == "bad" and cursor == spray:
@@ -79,16 +84,29 @@ def main():
         # Update state of components/data
         ##########
         #### Always Update ####
-        for critter in critter_list:
-            critter.move_critter()
-            cursor.update_pos(pygame.mouse.get_pos())
+
 
         #### Update if Game is Not Over ####
         if not game_over:
-            pass
+            if critter_list == []:
+                game_won = True
+                game_over = True
+                time_end = round(time(), 2)
+                time_elapsed = time_end - time_start
+            else:
+                for critter in critter_list:
+                    critter.move_critter()
+                    cursor.update_pos(pygame.mouse.get_pos())
         #### Update if Game is Over ####
         else:
-            pass
+            if game_won:
+                # winning message
+                game_over_msg = font.render(f"You did it in {time_elapsed} seconds", True, text_color)
+                game_over_msg_pos = game_over_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))  # draw pos to center on screen
+            else:
+                # losing message
+                game_over_msg = font.render(losing_msg, True, text_color)
+                game_over_msg_pos = game_over_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))  # draw pos to center on screen
 
         ##########
         # Update Display
@@ -103,7 +121,7 @@ def main():
                 critter.draw()
         #### Display while Game is Over ####
         else:
-            pass
+            screen.blit(game_over_msg, game_over_msg_pos)
 
         #### Draw changes the screen ####
         pygame.display.flip()
