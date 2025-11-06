@@ -61,8 +61,7 @@ class Critter:
 
     def did_get(self, cursor):
         """
-        The parameter is the [x, y] location of the mouse (or what you consider to be the main point of your tool)
         Returns the critter type if it was hit
         Returns another value if it was not hit
         """
-        pass
+        return self.type if self.rect.colliderect(cursor.collision_rect) else False
