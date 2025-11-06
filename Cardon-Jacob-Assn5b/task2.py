@@ -1,8 +1,9 @@
 # Jacob Cardon
 # CS1400 - MWF - 8:30am
 
-from cursor import *
 from critter import *
+from cursor import *
+import pygame
 
 SCREEN_WIDTH = 1280  # Use constants here to be able to use in different places
 SCREEN_HEIGHT = 720
@@ -21,8 +22,11 @@ def main():
     # Set up game media images, sounds
     ##########
 
-    net = Cursor("catching", "assets2/net.png", screen, .1)
-    spray = Cursor("killing", "assets2/spray.png", screen, .05)
+    net = Cursor(game_mode="catching", image_path="assets2/net.png", screen=screen, scale=.1)
+    spray = Cursor(game_mode="killing", image_path="assets2/spray.png", screen=screen, scale=.05)
+
+    butterfly = Critter("good", "assets2/butterfly.png", screen, .05)
+
     background = pygame.image.load("assets2/background.jpg")
     background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 

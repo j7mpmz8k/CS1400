@@ -1,7 +1,6 @@
 # Jacob Cardon
 # CS1400 - MWF - 8:30am
 
-import pygame
 from pygame import *
 
 screen_width = 0
@@ -15,30 +14,30 @@ class Cursor:
     offset: tuple[int, int]
     collision_center: tuple[int, int]
 
-    def __init__(self, mode:str, image:str, screen:Surface, scale=.05) -> None:
+    def __init__(self, game_mode:str, image_path:str, screen:Surface, scale=.05) -> None:
         global screen_width, screen_height
         screen_width, screen_height = screen.get_size()
         self.screen = screen
-        original_image = pygame.image.load(image)
+        original_image = image.load(image_path)
         orig_width, orig_height = original_image.get_size()
         new_width = int(screen_width * scale)  # Calculate target width (e.g., 5% of screen width)
         new_height = int(orig_height * (new_width / orig_width))  # Calculate target height based on aspect ratio
-        self.image = pygame.transform.scale(original_image, (new_width, new_height))
+        self.image = transform.scale(original_image, (new_width, new_height))
         self.rect = self.image.get_rect()
 
         # Add collision bounding box attribute
-        if mode == "catching":
+        if game_mode == "catching":
             self.collision_radius = self.rect.width * .38 / 2
             self.offset = (
                 round(self.rect.width / 2 + self.collision_radius),
                 round(self.rect.height * .05 + self.collision_radius)
             )
-        elif mode == "killing":
+        elif game_mode == "killing":
             self.collision_radius = self.rect.width / 2  # Already rounded, but consistent
             self.offset = (
                 round(self.rect.width / 2),
                 round(self.rect.height * .015 + self.collision_radius)
-        )
+            )
 
         self.collision_center = (0 + self.offset[0], 0 + self.offset[1])#initialized to top left corner of screen
 

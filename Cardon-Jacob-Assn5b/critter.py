@@ -2,25 +2,32 @@
 # CS1400 - MWF - 8:30am
 
 from random import randint
-import pygame
+from pygame import *
 from math import dist
 
 screen_width = 0
 screen_height = 0
 
 class Critter:
-    def __init__(self, screen:object, type:str, image:str, scale:float=0.05):
+    screen: Surface
+    image: Surface
+    rect: Rect
+    radius: float
+    move: tuple[int, int]
+    type: str
+
+    def __init__(self, type:str, image_path:str, screen:Surface, scale:float=0.05):
         global screen_width, screen_height
         screen_width, screen_height = screen.get_size()
         self.screen = screen
-        original_image = pygame.image.load(image)
+        original_image = image.load(image_path)
         orig_width, orig_height = original_image.get_size()
-        new_width = int(SCREEN_WIDTH * scale)  # Calculate target width (e.g., 5% of screen width)
+        new_width = int(screen_width * scale)  # Calculate target width (e.g., 5% of screen width)
         new_height = int(orig_height * (new_width / orig_width))  # Calculate target height based on aspect ratio
-        self.image = pygame.transform.scale(original_image, (new_width, new_height))
-        self.rect = self.picture.get_rect(center=(screen_width / 2, screen_height / 2))  # Directly set center position
+        self.image = transform.scale(original_image, (new_width, new_height))
+        self.rect = self.image.get_rect(center=(screen_width / 2, screen_height / 2))  # Directly set center position
         self.radius = min(self.rect.width / 2, self.rect.height / 2)  # Compute radius as half the smaller dimension
-        self.move = [randint(-15, 15), randint(-15, 15)]
+        self.move = (randint(-15, 15), randint(-15, 15))
         self.type = type
 
     def draw(self):

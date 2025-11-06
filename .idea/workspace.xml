@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5acf854a-b995-466e-a4b4-7d6913300b22" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Cardon-Jacob-Assn5b/_showyourwork.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/Cardon-Jacob-Assn5b/_showyourwork.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cardon-Jacob-Assn5b/critter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cardon-Jacob-Assn5b/critter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cardon-Jacob-Assn5b/cursor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cardon-Jacob-Assn5b/cursor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cardon-Jacob-Assn5b/task2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cardon-Jacob-Assn5b/task2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_showyourwork.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/_showyourwork.sqlite" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,6 +47,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.task2.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultAutoModeForALLUsers.v1": "true",
@@ -75,10 +80,14 @@
       <workItem from="1761030186352" duration="84000" />
       <workItem from="1761750578624" duration="102000" />
       <workItem from="1762286963865" duration="76000" />
+      <workItem from="1762465602954" duration="64000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/CS1400$task2.coverage" NAME="task2 Coverage Results" MODIFIED="1762465618994" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Cardon-Jacob-Assn5b" />
   </component>
 </project>
