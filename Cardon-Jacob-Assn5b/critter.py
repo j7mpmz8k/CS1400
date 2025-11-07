@@ -49,7 +49,7 @@ class Critter:
         Hint: You can get the dimensions of the screen from the screen parameter in the initializer: get_width() and get_height() will do it.
         Note: The entire image should always be on the screen. When the edge of the image hits a side, it should bounce.
         """
-
+        #clamps to inside of screen, inverets x or y direction if clamped
         hit_left = self.rect.left <= 0
         hit_right = self.rect.right >= screen_width
         hit_top = self.rect.top <= 0
@@ -67,7 +67,7 @@ class Critter:
             self.rect.bottom = screen_height
             self.move[1] *= -1
 
-    def did_get(self, cursor):
+    def did_get(self, cursor:Cursor) -> bool | str:
         """
         Returns the critter type if it was hit
         Returns another value if it was not hit
@@ -76,7 +76,10 @@ class Critter:
 
         return self.type if did_get else False
 
-def make_critter_list(count, screen, images) -> list[Critter]:
+def make_critter_list(count:int, screen:Surface, images:list[str]) -> list[Critter]:
+    """
+    creates list of critters equal to count. Half good and half bad type
+    """
     critter_list = []
     for i in range(count // 2):
         critter_list.append(Critter("good", images[0], screen))

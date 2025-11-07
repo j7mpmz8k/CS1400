@@ -88,32 +88,36 @@ def main():
             #moves mouse
             if event.type == pygame.MOUSEMOTION:
                 cursor.update_pos(pygame.mouse.get_pos())
+            #mouse click
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    pygame.mixer.Sound.play(cursor.sound)
-                    temp_list = []
-                    caught_any = False
+                    pygame.mixer.Sound.play(cursor.sound) if not game_over else None
+                    temp_list = []#stores non-collected critters
+                    caught_any = False#enforces only once cursor switch per click
                     for critter in critter_list:
                         hit_result = critter.did_get(cursor)
-                        if not hit_result:
+                        if not hit_result:#removes collected critters
                             temp_list.append(critter)
+                        #loosing conditions - caught critter with wrong cursor
                         elif (hit_result == "good" and cursor == spray) or (hit_result == "bad" and cursor == net):
                                 losing_msg = "You killed a butterfly!" if hit_result == "good" else "You caught a wasp!"
+                                pygame.mixer.Sound.play(lose_sound) if not game_over else None
                                 game_over = True
                                 game_won = False
-                                pygame.mixer.Sound.play(lose_sound)
                         else:
                             caught_any = True
                     critter_list = temp_list
 
+                    #checks remaining critters in case all are of same type. picks cursor accordingly
                     if not any(critter.type == "good" for critter in critter_list):
                         cursor = spray
                     elif not any(critter.type == "bad" for critter in critter_list):
                         cursor = net
-                    else:
+
+                    else:#flips cursor to opposite instance asuming both types of critters remain
                         cursor = spray if cursor == net and caught_any else net
-                    cursor.update_pos(pygame.mouse.get_pos())
-                    pygame.mixer.Sound.play(successful_get_sound) if caught_any else None
+                    cursor.update_pos(pygame.mouse.get_pos())#new cursor isn't aware of previous cursor's position
+                    pygame.mixer.Sound.play(successful_get_sound) if caught_any and not game_over else None
 
 
         ##########
@@ -124,6 +128,7 @@ def main():
 
         #### Update if Game is Not Over ####
         if not game_over:
+            #winning conditions - all critters caught
             if critter_list == []:
                 game_won = True
                 game_over = True
@@ -131,6 +136,7 @@ def main():
                 time_elapsed = round(time_end - time_start, 2)
                 pygame.mixer.Sound.play(win_sound)
             else:
+                #move critters
                 for critter in critter_list:
                     critter.move_critter()
 

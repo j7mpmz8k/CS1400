@@ -15,7 +15,7 @@ class Cursor:
     collision_center: tuple[int, int]
     sound: mixer.Sound
 
-    def __init__(self, game_mode:str, sound, image_path:str, screen:Surface, scale=.05) -> None:
+    def __init__(self, game_mode:str, sound:mixer.Sound, image_path:str, screen:Surface, scale=.05) -> None:
         global screen_width, screen_height
         screen_width, screen_height = screen.get_size()
         self.screen = screen
