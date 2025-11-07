@@ -28,7 +28,7 @@ def main():
 
     critter_images = ["assets2/butterfly.png", "assets2/wasp.png"]
     critter_count = 10
-    critter_list = make_critter_list(10, screen, critter_images)
+    critter_list = make_critter_list(critter_count, screen, critter_images)
 
     background = pygame.image.load("assets2/background.jpg")
     background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -60,27 +60,30 @@ def main():
                 if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
                     running = False
                 if event.key == pygame.K_SPACE and game_over:
-                    ### Do Stuff to Reset Game ###
+                    critter_count += 10
                     game_over = False
+                    game_won = None
+                    critter_list = make_critter_list(critter_count, screen, critter_images)
             if event.type == pygame.MOUSEMOTION:
                 cursor.update_pos(pygame.mouse.get_pos())
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     temp_list = []
+                    caught_any = False
                     for critter in critter_list:
-                        if critter.did_get(cursor) == "good" and cursor == spray:
-                            game_over = True
-                            losing_msg = "You killed a butterfly!"
-                        elif critter.did_get(cursor) == "bad" and cursor == net:
-                            game_over = True
-                            losing_msg = "You caught a wasp!"
-                        elif critter.did_get(cursor) == "good" and cursor == net:
-                            cursor = spray
-                        elif critter.did_get(cursor) == "bad" and cursor == spray:
-                            cursor = net
-                        elif not critter.did_get(cursor):
+                        hit_result = critter.did_get(cursor)
+                        if not hit_result:
                             temp_list.append(critter)
+                        elif (hit_result == "good" and cursor == spray) or (hit_result == "bad" and cursor == net):
+                                losing_msg = "You killed a butterfly!" if hit_result == "good" else "You caught a wasp!"
+                                game_over = True
+                                game_won = False
+                        else:
+                            caught_any = True
                     critter_list = temp_list
+                    cursor = spray if cursor == net and caught_any else net
+                    if len(critter_list) == 1:
+                        cursor = spray if critter_list[0].type == "bad" else net
 
 
         ##########
