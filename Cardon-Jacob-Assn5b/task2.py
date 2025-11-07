@@ -33,6 +33,9 @@ def main():
     background = pygame.image.load("assets2/background.jpg")
     background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    font = pygame.font.SysFont("Comic Sans MS", 48, True)  # Font name and size
+
+
     ##########
     # Set up game data
     ##########
@@ -101,10 +104,12 @@ def main():
         else:
             if game_won:
                 # winning message
+                text_color = (0, 255, 0)  # black
                 game_over_msg = font.render(f"You did it in {time_elapsed} seconds", True, text_color)
                 game_over_msg_pos = game_over_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))  # draw pos to center on screen
             else:
                 # losing message
+                text_color = (255, 0, 0)  # black
                 game_over_msg = font.render(losing_msg, True, text_color)
                 game_over_msg_pos = game_over_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))  # draw pos to center on screen
 
