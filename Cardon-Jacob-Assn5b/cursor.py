@@ -14,7 +14,7 @@ class Cursor:
     offset: tuple[int, int]
     collision_center: tuple[int, int]
 
-    def __init__(self, game_mode:str, image_path:str, screen:Surface, scale=.05) -> None:
+    def __init__(self, game_mode:str, sound, image_path:str, screen:Surface, scale=.05) -> None:
         global screen_width, screen_height
         screen_width, screen_height = screen.get_size()
         self.screen = screen
@@ -24,6 +24,7 @@ class Cursor:
         new_height = int(orig_height * (new_width / orig_width))  # Calculate target height based on aspect ratio
         self.image = transform.scale(original_image, (new_width, new_height))
         self.rect = self.image.get_rect()
+        self.sound = sound
 
         # Add collision bounding box attribute
         if game_mode == "catching":

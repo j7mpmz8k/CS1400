@@ -23,8 +23,7 @@ def main():
     # Set up game media images, sounds
     ##########
 
-    net = Cursor(game_mode="catching", image_path="assets2/net.png", screen=screen, scale=.1)
-    spray = Cursor(game_mode="killing", image_path="assets2/spray.png", screen=screen, scale=.05)
+
 
     critter_images = ["assets2/butterfly.png", "assets2/wasp.png"]
     critter_count = 10
@@ -34,6 +33,22 @@ def main():
     background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
     font = pygame.font.SysFont("Comic Sans MS", 48, True)  # Font name and size
+
+    pygame.mixer.music.load("assets2/music.mp3")
+    pygame.mixer.music.set_volume(.5)
+    pygame.mixer.music.play(-1) # -1 loops the music continuously
+
+    successful_get_sound = pygame.mixer.Sound("assets2/successful_get.wav")
+    successful_get_sound.set_volume(.5)
+    swoosh_sound = pygame.mixer.Sound("assets2/swoosh.mp3")
+    spray_sound = pygame.mixer.Sound("assets2/spray.mp3")
+    spray_sound.set_volume(3)
+    lose_sound = pygame.mixer.Sound("assets2/lose.mp3")
+    win_sound = pygame.mixer.Sound("assets2/win.wav")
+
+    net = Cursor(game_mode="catching", sound=swoosh_sound, image_path="assets2/net.png", screen=screen, scale=.1)
+    spray = Cursor(game_mode="killing", sound=spray_sound, image_path="assets2/spray.png", screen=screen, scale=.05)
+
 
 
     ##########
@@ -60,14 +75,17 @@ def main():
                 if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
                     running = False
                 if event.key == pygame.K_SPACE and game_over:
-                    critter_count += 10
+                    critter_count = 10 if not game_won else critter_count + 10
                     game_over = False
                     game_won = None
+                    pygame.mixer.music.play(-1)
                     critter_list = make_critter_list(critter_count, screen, critter_images)
+                    time_start = round(time(), 2)
             if event.type == pygame.MOUSEMOTION:
                 cursor.update_pos(pygame.mouse.get_pos())
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
+                    pygame.mixer.Sound.play(cursor.sound)
                     temp_list = []
                     caught_any = False
                     for critter in critter_list:
@@ -78,12 +96,18 @@ def main():
                                 losing_msg = "You killed a butterfly!" if hit_result == "good" else "You caught a wasp!"
                                 game_over = True
                                 game_won = False
+                                pygame.mixer.Sound.play(lose_sound)
                         else:
                             caught_any = True
                     critter_list = temp_list
-                    cursor = spray if cursor == net and caught_any else net
-                    if len(critter_list) == 1:
-                        cursor = spray if critter_list[0].type == "bad" else net
+
+                    if not any(critter.type == "good" for critter in critter_list):
+                        cursor = spray
+                    elif not any(critter.type == "bad" for critter in critter_list):
+                        cursor = net
+                    else:
+                        cursor = spray if cursor == net and caught_any else net
+                    pygame.mixer.Sound.play(successful_get_sound) if caught_any else None
 
 
         ##########
@@ -99,24 +123,25 @@ def main():
                 game_over = True
                 time_end = time()
                 time_elapsed = round(time_end - time_start, 2)
-                # winning message
-                text_color = (0, 255, 0)  # black
-                game_over_msg = font.render(f"You did it in {time_elapsed} seconds!", True, text_color)
-                game_over_msg_pos = game_over_msg.get_rect(
-                center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4))  # draw pos to center on screen
+                pygame.mixer.Sound.play(win_sound)
             else:
                 for critter in critter_list:
                     critter.move_critter()
                     cursor.update_pos(pygame.mouse.get_pos())
         #### Update if Game is Over ####
-        else:
+        if game_over:
+            pygame.mixer.music.stop()
+            text_color = (0, 255, 0)  if game_won else (255, 0, 0)
+            play_again_msg = font.render(f"Press SPACE bar to play again!", True, text_color)
+            play_again_msg_pos = play_again_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 3))
             if game_won:
-                pass
+                # green winning message
+                game_over_msg = font.render(f"You did it in {time_elapsed} seconds!", True, text_color)
+                game_over_msg_pos = game_over_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4))
             else:
-                # losing message
-                text_color = (255, 0, 0)  # black
+                # red losing message
                 game_over_msg = font.render(losing_msg, True, text_color)
-                game_over_msg_pos = game_over_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4))  # draw pos to center on screen
+                game_over_msg_pos = game_over_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4))
 
         ##########
         # Update Display
@@ -132,6 +157,7 @@ def main():
         #### Display while Game is Over ####
         else:
             screen.blit(game_over_msg, game_over_msg_pos)
+            screen.blit(play_again_msg, play_again_msg_pos)
 
         #### Draw changes the screen ####
         pygame.display.flip()
