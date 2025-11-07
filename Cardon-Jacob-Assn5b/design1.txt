@@ -1,0 +1,71 @@
+Moody class
+    parameters
+        smiling(true/false)
+        happy emotion(true/false)
+        dark eyes(true/false)
+    attributes
+        smile(true/false)
+        happy(true/false)
+        dark eyes(true/false)
+        window size - default is 1280, 720
+        head diameter size - default is 400
+        head center x,y position - half of head diameter
+    methods
+        darw_arc()
+            helper method to draw smile for rotation purposes
+            parameters
+                x,y - center of arc
+                height,width - dimensions of arc
+                rotations - default is 0
+                color - default is black
+                thickness - default is 10
+            calculate draw position - center position minus x,y radius's
+            rotation algorithm is start angle = rotation + 180, end angle = rotation + 360
+            draw arc in window
+
+        is_smile()
+            returns true/false depentant on smile attribute
+        is_happy()
+            returns true/false depentant on happy attribute
+        is_dark_eyes()
+            returns true/false depentant on dark eyes attribute
+
+        change_eyes()
+            flips dark eyes attribute true/false value
+        change_mouth()
+            flips smile attribute true/false value
+        change_emotion()
+            flips happy attribute true/false value
+
+        draw_head()
+            draws yellow filled circle if happy, red is not happy
+            draws black outline
+            position and size is based on class attributes
+
+        draw_eyes()
+            calculate
+                radius of eyes - 10% of head size
+                gap between eyes - 10% of head size
+                center y position of both eyes - 10% of head size
+                center x position of left eye - center x position of head minus gap minus eye radius
+                center x position of right eye - center x position of head plus gap plus eye radius
+            set color to black if dark eyes is true
+            set color to green if dark eyes is false
+            drawy left eye circle based on calculated values
+            draw right eye circle based on calculated values
+
+        draw_mouth()
+            caclculate
+                width of mouth - 60% of head size
+                height of mouth - 40% of head size
+                center y position of mouth - 70% of head size from top
+                    modified by y radius of smile if frowning since 180 rotation of smile flips by x axis at top of smile
+                center x position of mouth - center x position of head
+                rotation - is 0 if smile is true, is 180 if frowning
+            call draw_arc() based on calculated values
+
+        draw_face()
+            call draw_head()
+            calll draw_eyes()
+            call draw_mouth()
+            call drawly.redraw()

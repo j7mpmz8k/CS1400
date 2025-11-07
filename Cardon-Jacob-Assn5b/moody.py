@@ -44,10 +44,10 @@ class Moody:
 
     def draw_eyes(self)->None:
         radius = round(self.head_size * .10)
-        center_y = self.head_center_y - round(self.head_size // 2 * .20)
+        center_y = self.head_center_y - self.head_size // 10
         gap = round(self.head_size * .10)
-        center_x_left = self.head_center_x - radius - gap
-        center_x_right = self.head_center_x + radius + gap
+        center_x_left = self.head_center_x - gap - radius
+        center_x_right = self.head_center_x + gap + radius
         set_color("black") if self.dark_eyes else set_color("green")
         circle(center_x_left, center_y, radius)
         circle(center_x_right, center_y, radius)
