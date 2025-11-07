@@ -94,8 +94,13 @@ def main():
             if critter_list == []:
                 game_won = True
                 game_over = True
-                time_end = round(time(), 2)
-                time_elapsed = time_end - time_start
+                time_end = time()
+                time_elapsed = round(time_end - time_start, 2)
+                # winning message
+                text_color = (0, 255, 0)  # black
+                game_over_msg = font.render(f"You did it in {time_elapsed} seconds!", True, text_color)
+                game_over_msg_pos = game_over_msg.get_rect(
+                center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4))  # draw pos to center on screen
             else:
                 for critter in critter_list:
                     critter.move_critter()
@@ -103,15 +108,12 @@ def main():
         #### Update if Game is Over ####
         else:
             if game_won:
-                # winning message
-                text_color = (0, 255, 0)  # black
-                game_over_msg = font.render(f"You did it in {time_elapsed} seconds", True, text_color)
-                game_over_msg_pos = game_over_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))  # draw pos to center on screen
+                pass
             else:
                 # losing message
                 text_color = (255, 0, 0)  # black
                 game_over_msg = font.render(losing_msg, True, text_color)
-                game_over_msg_pos = game_over_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))  # draw pos to center on screen
+                game_over_msg_pos = game_over_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4))  # draw pos to center on screen
 
         ##########
         # Update Display
