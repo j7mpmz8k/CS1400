@@ -17,7 +17,7 @@ class Moody:
         """At 0 rotation: start angle is 180 and end angle adds 360 for a horizontally leveled arc."""
         radius = width/2
         set_color(color)
-        arc(center_x_pos - radius, center_y_pos - radius, width, height, start=180+rotation, end=360+rotation, stroke=thickness)
+        arc(center_x_pos - radius, center_y_pos - height / 2, width, height, start=180+rotation, end=360+rotation, stroke=thickness)
 
     def is_smile(self)->bool:
         return self.smile
@@ -56,7 +56,7 @@ class Moody:
         width = round(self.head_size * .60)
         height = round(self.head_size * .40)
         y_modifier = 0 if self.smile else height // 2
-        center_y = self.head_center_y + round(self.head_size // 2 * .80) - height // 2 + y_modifier
+        center_y = self.head_center_y + round(self.head_size // 2 * .70) - height // 2 + y_modifier
         rotation = 0 if self.smile else 180
         self.draw_arc(self.head_center_x, center_y, width, height, rotation=rotation)
 
