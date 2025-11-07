@@ -53,11 +53,11 @@ class Cursor:
             int(self.collision_center[0] - self.offset[0]),
             int(self.collision_center[1] - self.offset[1])
         )
-
         # Clamp the rectangle to stay within screen bounds
-        self.rect.left = max(0, min(screen_width - self.rect.width, self.rect.left))
-        self.rect.top = max(0, min(screen_height - self.rect.height, self.rect.top))
-
+        self.rect.topleft = (
+            max(0, min(screen_width - self.rect.width, self.rect.left)),
+            max(0, min(screen_height - self.rect.height, self.rect.top))
+        )
         # Recalculate collision center based on clamped rect position
         self.collision_center = (
             self.rect.left + self.offset[0],

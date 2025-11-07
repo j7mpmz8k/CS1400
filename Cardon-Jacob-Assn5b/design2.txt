@@ -1,0 +1,172 @@
+main()
+    pygame set up
+        screen window - based on width/height constants
+        window title - "Critter Catcher"
+        clock speed - 30
+        hide mouse visibility
+    game assets
+        critter images - store file paths (wasps & butterlies) in list
+        background image scaled to screen size
+        font (set to Comic Sans MS)
+        music - play continuously
+        sound effects
+            successfull critter caught
+            swoosh sound - using net cursor
+            spray sound - using bug spray bottle
+            game over sound
+            game won sound
+        create Cursor - net catcher and spray bottle
+            call Cursor()
+            store in Cursor object
+                game mode - catching or killing
+                sound effect
+                image path
+                pygame screen
+                image scale
+            create variable for both cursors - net catcher and spray bottle
+    initialize game data
+        cursor set to net catcher
+        start time stamp
+        set critter count to 10
+        call make_critter_list() to create critters
+    game flags
+        game over
+        running
+        game won
+    game loop
+        check user inputs
+            exit window -> not running
+            q or escape -> not running
+            spacebar -> start new game if game over
+                reset game flags
+                start music
+                create new critter list
+                    10 critters if previous game lost, add 10 more if previous game won
+                    adjust critter count
+                start time stamp
+            mouse motion
+                get mouse position
+                update cursor position
+            left mouse button -> attempt catch critter
+                initialize temp flag if caught any (ensures cursor switches only once per click)
+                loop through critter list
+                    call did_get()
+                        if caught correct critter
+                            play successfull catch sound effect
+                            remove critter from critter list
+                            set caught any flat to true
+                        if caught incorrect critter
+                            game lost
+                            game over flag set
+                            play game lost sound
+                            set losing message
+                                "You killed a butterfly!" if butterfly killed
+                                "You caught a wasp!" if wasp caught
+                flip cursor to opposite cursor object if caught any is true
+                play cursor sound effect if caught any is true
+                if remaining critters are only wasps, set cursor to spray bottle
+                if remaining critters are only butterlies, set cursor to net catcher
+                update mouse position (newly flipped cursor isn't aware of previous cursor's position)
+        update game
+            check if no critters left in critter list
+                game won
+                game over
+                set end time stamp - calculate time elapsed
+                play game won sound
+            if not game over
+                move all critters in critter list
+            if game over
+                stop music
+                display "You did it in BLANK seconds!" if won
+                display losing message if lost
+                display play again message "Press spacebar to play again." underneath previous message
+        update display
+            wipe display with background image
+            if not game over
+                draw cursor
+                draw critters in critter list
+            if game over
+                draw game over message message
+                draw play again message
+Cursor class
+    attributes
+        screen
+        image
+        rect of image
+        sound effect
+        collision center position
+        collision radius
+        cursor offset (based on collision center to draw cursor image)
+    init
+        parameters
+            game mode - catching or killing
+            sound effect
+            image path
+            pygame screen
+            image scale - default 5%
+        load image
+            scale image (maintain aspect ratio of original image)
+            algorith: new width = original width * scale, new height = original height * (new width / original width)
+        check if game mode is "killing" or "catching"
+            caclulate collision radius and offset based on game mode since meaningful collisions from images are different
+        initialize collision center to top left corner of screen
+    update_pos()
+        set collision center to mouse position
+        set cursor rect top left corner to collision center minus x,y offsets
+            clamp top left corner of cursor rect to inside of screen
+        recalcuate collision center based on clamped rect
+            collision center is top left corner of cursor rect plus x,y offsets
+    draw()
+        draw cursor image on screen
+
+Critter class
+    attributes
+        screen
+        image
+        rect of image
+        radius
+        type
+        move - speed and direction
+    init
+        parameters
+            type - "good" or "bad"
+            image path
+            pygame screen
+            image scale - default 5%
+        get screen size
+        load image
+            scale image (maintain aspect ratio of original image)
+            algorith: new width = original width * scale, new height = original height * (new width / original width)
+        center rect to center of screen
+        set radius from minimum of width/height of image
+        set move to random int -15,15 for both x,y
+
+    draw()
+        draw critter image on screen
+
+    move_critter()
+        update rect to rect.move(move_x, move_y)
+        call check_bounce()
+
+    check_bounce()
+         inverts x or y move by -1 if rect hits edge of screen
+         clamp position within screen
+
+    did_get()
+        parameters
+            cursor object
+        check if critter's radius collides with cursor's collision radius
+            if yes, return critter type
+            if no, return false
+
+make_critter_list()
+    parameters
+        critter count
+        screen
+        list of images
+    loop through number half of critter count (repeat twice for each type "good" and "bad")
+        create critter object
+            pass parameters into Critter() along with type
+            store critter in critter list
+        call move_critter() on each critter in list
+    returns list of critters

@@ -6,7 +6,7 @@ from cursor import *
 import pygame
 from time import time
 
-SCREEN_WIDTH = 2560#1280  # Use constants here to be able to use in different places
+SCREEN_WIDTH = 2560#1280
 SCREEN_HEIGHT = 1440#720
 CLOCK_TICK = 30
 TITLE = "Critter Catcher"
@@ -26,8 +26,6 @@ def main():
 
 
     critter_images = ["assets2/butterfly.png", "assets2/wasp.png"]
-    critter_count = 10
-    critter_list = make_critter_list(critter_count, screen, critter_images)
 
     background = pygame.image.load("assets2/background.jpg")
     background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -57,6 +55,8 @@ def main():
 
     cursor = net
     time_start = round(time(), 2)
+    critter_count = 10
+    critter_list = make_critter_list(critter_count, screen, critter_images)
 
     ##########
     # Game Loop
@@ -112,6 +112,7 @@ def main():
                         cursor = net
                     else:
                         cursor = spray if cursor == net and caught_any else net
+                    cursor.update_pos(pygame.mouse.get_pos())
                     pygame.mixer.Sound.play(successful_get_sound) if caught_any else None
 
 
@@ -132,12 +133,12 @@ def main():
             else:
                 for critter in critter_list:
                     critter.move_critter()
-                    cursor.update_pos(pygame.mouse.get_pos())
+
         #### Update if Game is Over ####
         if game_over:
             pygame.mixer.music.stop()
             text_color = (0, 255, 0)  if game_won else (255, 0, 0)
-            play_again_msg = font.render(f"Press SPACE bar to play again!", True, text_color)
+            play_again_msg = font.render(f"Press spacebar to play again!", True, text_color)
             play_again_msg_pos = play_again_msg.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 3))
             if game_won:
                 # green winning message
