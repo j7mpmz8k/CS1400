@@ -13,6 +13,7 @@ class Cursor:
     collision_radius: float
     offset: tuple[int, int]
     collision_center: tuple[int, int]
+    sound: mixer.Sound
 
     def __init__(self, game_mode:str, sound, image_path:str, screen:Surface, scale=.05) -> None:
         global screen_width, screen_height

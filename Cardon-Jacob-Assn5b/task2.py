@@ -6,8 +6,8 @@ from cursor import *
 import pygame
 from time import time
 
-SCREEN_WIDTH = 1280  # Use constants here to be able to use in different places
-SCREEN_HEIGHT = 720
+SCREEN_WIDTH = 2560#1280  # Use constants here to be able to use in different places
+SCREEN_HEIGHT = 1440#720
 CLOCK_TICK = 30
 TITLE = "Critter Catcher"
 
@@ -69,18 +69,23 @@ def main():
         # Get Input/Events
         ##########
         for event in pygame.event.get():
+            #exits window
             if event.type == pygame.QUIT:  # User clicked the window's X button
                 running = False
+            #quits game
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
                     running = False
+                #restarts game
                 if event.key == pygame.K_SPACE and game_over:
+                    # increases count by 10 if win, sets back to 10 if loss
                     critter_count = 10 if not game_won else critter_count + 10
                     game_over = False
                     game_won = None
                     pygame.mixer.music.play(-1)
                     critter_list = make_critter_list(critter_count, screen, critter_images)
                     time_start = round(time(), 2)
+            #moves mouse
             if event.type == pygame.MOUSEMOTION:
                 cursor.update_pos(pygame.mouse.get_pos())
             if event.type == pygame.MOUSEBUTTONDOWN:
