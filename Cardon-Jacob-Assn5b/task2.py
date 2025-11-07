@@ -6,8 +6,8 @@ from cursor import *
 import pygame
 from time import time
 
-SCREEN_WIDTH = 2560#1280
-SCREEN_HEIGHT = 1440#720
+SCREEN_WIDTH = 1280
+SCREEN_HEIGHT = 720
 CLOCK_TICK = 30
 TITLE = "Critter Catcher"
 
