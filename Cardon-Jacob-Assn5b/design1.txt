@@ -11,7 +11,7 @@ Moody class
         head diameter size - default is 400
         head center x,y position - half of head diameter
     methods
-        darw_arc()
+        -darw_arc()
             helper method to draw smile for rotation purposes
             parameters
                 x,y - center of arc

@@ -13,7 +13,7 @@ class Moody:
         self.head_center_x = round(self.window_size[0] / 2)
         self.head_center_y = round(self.window_size[1] / 2)
 
-    def draw_arc(self, center_x_pos, center_y_pos, width, height, color="black", rotation=0, thickness=10) -> None:
+    def __draw_arc(self, center_x_pos, center_y_pos, width, height, color="black", rotation=0, thickness=10) -> None:
         """
         Helper method for draw_mouth()
         At 0 rotation: start angle is 180 and end angle adds 360 for a horizontally leveled arc.
@@ -77,7 +77,7 @@ class Moody:
         y_modifier = 0 if self.smile else height // 2# used since smile flips by x axis at top of smile when rotation is 180
         center_y = self.head_center_y + round(self.head_size // 2 * .70) - height // 2 + y_modifier
         rotation = 0 if self.smile else 180
-        self.draw_arc(self.head_center_x, center_y, width, height, rotation=rotation)
+        self.__draw_arc(self.head_center_x, center_y, width, height, rotation=rotation)
 
     def draw_face(self)->None:
         self.draw_head()
